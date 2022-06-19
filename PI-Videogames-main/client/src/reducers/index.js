@@ -1,8 +1,10 @@
 // IMPORTAR ACTIONS
 
+let videogameExample = {name: 'Warcraft', platforms: ['ps3', 'family'], released: '2013-10-3', rating: 5, genres: ['action', 'multiplayer']}
+
 const initialState = {
-    videogames: [],
-    videogameDetail: {},
+    videogames: [videogameExample],
+    videogameDetail: {name: 'Warcraft', platforms: ['ps3', 'family'], released: '2013-10-3', rating: 5, genres: ['action', 'multiplayer']},
     genres: []
 }
 

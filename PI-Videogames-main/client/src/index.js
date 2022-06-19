@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from "react-redux";
+import store from "./store/index";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}> {/*Componente que importamos de 'react-redux' y que abraza toda nuestra app. Recibe como prop el store. Toda nuestra app tendrá acceso al mismo. */}
+  <BrowserRouter>
     <App />
-  </React.StrictMode>,
+  </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
