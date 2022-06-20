@@ -2,46 +2,28 @@ import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import './Videogames.css';
 import { connect } from 'react-redux';
-import Filters from '../Filters/Filters';
+import { getAllVideogames } from '../../actions';
+
 
 export class Videogames extends Component {
+    // constructor(props){
+    //     super(props)
+    // }
+
+    componentDidMount(){
+        this.props.getAllVideogames()
+    }
    
    render() {
     return (
         <header className="videogames">
-
-            <div>{Filters}</div>
-
-            {/* <div className='filters'>
-                <div className='genre_games_filters'>
-                       <label>Filter By</label>
-                        <select name='all_db_games'>
-                            <option value='all_games'>All Games</option>
-                            <option value='db_games'>Created Games</option>
-                        </select>
-                        <select name='genres'>
-                            <option value='genres'>Genres</option>
-                         </select>
-                </div>
-                <div className='alphabetic_rating_orders'>
-                      <label>Order By</label>
-                        <select name='alphabetic'>Alphabet
-                            <option value='a-z'>Ascending A-Z</option>
-                            <option value='z-a'>Descending Z-A</option>
-                        </select>
-                        <select name='rating' placeholder='Rating'>Rating
-                            <option value='1-10'>1-10</option>
-                            <option value='10-1'>10-1</option>
-                         </select>
-                </div>
-             </div> */}
-
+           
              <div className='createVd'>
                 <Link to='/createVideoGame'><button>Create Game</button></Link>
             </div>
 
              <div className='containerVideogames'>
-                    ACA VAN LOS VIDEO JUEGOS
+                    ACA VAN LOS JUEGUITOS 🙂
                     <ul>
                         {this.props.videogames && this.props.videogames.map(vg => 
                             <div key={vg.id}>
@@ -65,5 +47,9 @@ function mapStateToProps(state) { // Creamos función mapStateToProps que nos tr
     }
 }
 
-
-export default connect(mapStateToProps, null)(Videogames); // Conectamos a nuestro componente en primer lugar con el estado global (store) pasándolo como prop mediante mapStateToProps, y en segundo lugar con las actions mediante mapDispatchToProps.
+function mapDispatchToProps(dispatch) {
+    return {
+        getAllVideogames: () => dispatch(getAllVideogames()) 
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Videogames); // Conectamos a nuestro componente en primer lugar con el estado global (store) pasándolo como prop mediante mapStateToProps, y en segundo lugar con las actions mediante mapDispatchToProps.
