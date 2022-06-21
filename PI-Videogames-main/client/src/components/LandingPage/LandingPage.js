@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect, useDispatch, Component} from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import './LandingPage.css';
+import { getGenres } from '../../actions';
+import { connect } from 'react-redux';
 
-export default function LandingPage() {
+
+
+export class LandingPage extends Component {
+
+    componentDidMount() {
+        this.props.getGenres()
+    }
+
+    render () {
     return (
         <header className="landingPage">
             <nav>
@@ -33,3 +43,14 @@ export default function LandingPage() {
         </header>
     )
 }
+}
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+      getGenres: genres => dispatch(getGenres(genres))
+    }
+  }
+  
+  
+  export default connect(null, mapDispatchToProps)(LandingPage); // Conectamos a nuestro componente en primer lugar con el estado global (store) pasándolo como prop mediante mapStateToProps, y en segundo lugar con las actions mediante mapDispatchToProps

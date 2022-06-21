@@ -30,7 +30,7 @@ export class Videogames extends Component {
                                 <img src={vg.background_image} alt='videogameImage'/>
                                 <h3><Link to={`/videogames/${vg.id}`}>{vg.name}</Link></h3>
                                 <li>Platforms: {vg.platforms.join(' | ')}</li>
-                                <li>Genres:  {vg.genres.join(' | ')}</li>
+                                <li>Genres:  {vg.genres.map(g => g.name).join(' | ')}</li>
                             </div>)
                         }
                     </ul>

@@ -1,14 +1,18 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './Form.css';
+import { connect } from 'react-redux';
+import { createVideogame } from '../../actions';
+
+let genres =[{id:1, name: 'Action'}, {id:2, name: 'Adventure' } ];
 
 export function validate(game) {
-    let errors = {}; // Creamos objeto donde iremosguardando como strings los errores en caso de que los hubiere para luego renderizarlos en pantalla.
-    if (!game.name) {errors.name = 'name is required'} // Si no hay nada en el input correspondiente al name, creamos una propiedad con dicho nombre en el objeto errors para renderizar que el name es necesaria.
-    else if (!/\S+@\S+\.\S+/.test(game.name)) {errors.name = 'name is invalid'} // Testeamos usando regular expressions si lo escrito en el input name es un name válido (en este caso si es un mail). Si es inválido creamos una propiedad en el objeto errors para renderizar que el name es inválido.
-    else if (!game.description) {errors.description = 'description is required'} // Si no hay nada en el input correspondiente al description, creamos una propiedad con dicho nombre en el objeto errors para renderizar que la description es necesaria.
-    else if (!/(?=.*[0-9])/.test(game.description)) {errors.description = 'description is invalid'} // Testeamos usando regular expressions si lo escrito en el input description es una description válida (en este caso si contiene al menos un número). Si es inválida creamos una propiedad en el objeto errors para renderizar que la description es inválida.
-    return errors; // Retornamos el objeto errores.
+    let errors = {}; 
+    if (!game.name) {errors.name = 'name is required'} 
+    else if (!/\S+@\S+\.\S+/.test(game.name)) {errors.name = 'name is invalid'} 
+    else if (!game.description) {errors.description = 'description is required'} 
+    else if (!/(?=.*[0-9])/.test(game.description)) {errors.description = 'description is invalid'} 
+    return errors; 
   }
 
 export default function Form() {
@@ -17,7 +21,9 @@ export default function Form() {
         description: '',
         rating: "",
         released: "",
-        image: ""
+        image: "",
+        platforms: [],
+        genres: [],
         });
 
  const [errors, setErrors] = React.useState({}) 
@@ -27,12 +33,16 @@ export default function Form() {
     setErrors(validate({...game, [e.target.name]: e.target.value})) 
  }
 
- const handleOnSubmit = (e) => {}
+ const handleOnSubmit = (e) => {
+     e.preventDefault()
+     createVideogame(game)
+
+ }
 
     return (
        <div>
        <form onSubmit={handleOnSubmit} id="videogameForm">
-        <button>Return</button>
+        <button><Link to='/home'>Return</Link></button>
         <h3>Create your own Videogame!</h3>
 
         <label htmlFor='name'>Name:</label> 
@@ -51,7 +61,13 @@ export default function Form() {
             <input className={errors.image && 'danger'} type='text' name='image' key='image' value={game.image} onChange={handleOnChange} placeholder='Insert image url'></input>
             {errors.image && <p className='danger'>{errors.image}</p>} 
 
-            <select className='gameGenres'>Genres</select>
+            <select className='gameGenres' name='Genres' size ='0' multiple>
+              <optgroup label='Genres'>
+            {genres.map(g => (
+                <option key={g.id} value={g.name}>{g.name}</option>
+            ))}
+            </optgroup>
+            </select>
             <select className='gameplatForms'>Platforms</select>
 
         <label htmlFor='description'>Description:</label>
@@ -63,3 +79,19 @@ export default function Form() {
       </div>
     )
 }
+
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//       createVideogame: game => dispatch(createVideogame(game))
+//     }
+//   }
+  
+
+//   function mapStateToProps(state){
+//     return {
+//         genres: state.genres
+//     }
+//   }
+  
+// export default connect(mapStateToProps, mapDispatchToProps)(NavBar); // Conectamos a nuestro componente en primer lugar con el estado global (store) pasándolo como prop mediante mapStateToProps, y en segundo lugar con las actions mediante mapDispatchToProps

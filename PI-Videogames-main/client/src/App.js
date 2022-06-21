@@ -14,10 +14,12 @@ import './App.css';
 function App() {
   return (
  <React.Fragment>
-   <Route exact path='/lp' component={LandingPage} />
-   <Route path='/' component={NavBar} />
+   <Route exact path='/' component={LandingPage} />
+   {/* <Route path='/home' component={NavBar} />
    <Route path='/home' component={Filters} />
-   <Route path='/home' component={Videogames} />
+   <Route path='/home' component={Videogames} /> */}
+    <Route path='/home'> <NavBar/><Filters/><Videogames/> </Route>
+   {/* <Route path= '/videogames' component={Videogames} /> */}
    <Route path='/videogames/:videogameId' component={VideogameDetail} />
    {/* <Route path='/genres' component={Genres} /> */}
    <Route path='/createVideoGame' component={Form} />

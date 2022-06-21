@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { getVideogames } from '../../actions/index';
 import { connect } from 'react-redux';
 // import './Navbar.css';
@@ -9,6 +9,11 @@ export function NavBar() {
 
     function handleOnChange(e) {
         setTitle(e.target.value)
+    }
+
+    function handleOnClick(e) {
+        e.preventDefault()
+        getVideogames(title)
     }
 
     return (
@@ -24,7 +29,7 @@ export function NavBar() {
                     </h4>
                     <div className='searcher'>
                     <input className='searchVg' type='text' value={title} onChange={handleOnChange} placeholder='Videogame name...'></input>
-                    <button type='button' onClick={title => getVideogames(title)}>SEARCH</button>
+                    <button type='button' onClick={e => handleOnClick(e)}>SEARCH</button>
                 </div>
                 </ul>
                 </form>

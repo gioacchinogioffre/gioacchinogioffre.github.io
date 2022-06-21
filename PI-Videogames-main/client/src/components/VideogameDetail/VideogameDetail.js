@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './VideogameDetail.css';
 import {connect} from 'react-redux';
 import { getVideogameDetail} from '../../actions/index';
@@ -8,32 +8,32 @@ import { getVideogameDetail} from '../../actions/index';
 export class VideogameDetail extends Component {
 
     componentDidMount() { // Invocamos la función componentDidMount para que cada vez que el componente sea invocado...
-        const videogameDetail = this.props.match.params.videogameId   
-        console.log(videogameDetail)
+        const videogameDetail = this.props.match.params.videogameId
         this.props.getVideogameDetail(videogameDetail)
     }
 
     render(){
-    return (
-        console.log(this.props.vgDetail),
-        <div key={this.props.vgDetail.id} className="containerDetail">
-            <button>Return</button>
-            <img src ={this.props.vgDetail.background_image} alt='imageVgD'/>
-            <h3>{this.props.vgDetail.name}</h3>
-            <h4>Rating: {this.props.vgDetail.rating}</h4>
-            <h4>Released: {this.props.vgDetail.released}</h4>
-            {/* <div>Platforms: {this.props.vgDetail.platforms.join(' | ')}</div>
-            <div>Genres: {this.props.vgDetail.genres.join(' | ')}</div> */}
-            <p>{this.props.vgDetail.description}</p>
+    return (  
+      this.props.vgDetail && this.props.vgDetail.map(vg =>
+        <div key={vg.id} className="containerDetail">
+            <button><Link to ='/home'>Return</Link></button>
+            <br></br>
+            <img src ={vg.background_image} alt='imageVgD'/>
+            <h3>{vg.name}</h3>
+            <h4>Rating: {vg.rating}</h4>
+            <h4>Released: {vg.released}</h4>
+            <div>Platforms: {vg.platforms.join(' | ')}</div>
+            <div>Genres: {vg.genres.map(g => g.name).join(' | ')}</div>
+            <p>{vg.description}</p>
         </div>
-    )
-    }
+        ))
+        }
 }
 
 
 function mapStateToProps(state) { 
     return {
-        vgDetail: state.videogameDetail 
+        vgDetail: state.videogameDetail,
     }
 }
 
