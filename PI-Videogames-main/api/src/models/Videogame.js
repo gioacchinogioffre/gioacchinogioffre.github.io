@@ -31,8 +31,9 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       validate: {
         min: 0,
-        max: 10,
-      }
+        max: 5,
+      },
+      defaultValue: 0
     },
 
     platforms: {
@@ -44,6 +45,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       defaultValue: 'https://via.placeholder.com/300x200',
     },
+
+    createdOnDb: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
     
   });
 };

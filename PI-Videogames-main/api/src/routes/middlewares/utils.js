@@ -9,7 +9,8 @@ module.exports = {
     getApiGenres: getApiGenres,
     getApiVideogames: getApiVideogames,
     getDbVideogames: getDbVideogames,
-    getAllVideogames: getAllVideogames
+    getAllVideogames: getAllVideogames,
+    getVideogameById: getVideogameById
 }
 
 
@@ -63,4 +64,25 @@ async function getAllVideogames() {
     const dbVideogames = await getDbVideogames();
     const allVideogames = [...dbVideogames, ...apiVideogames];
     return allVideogames
+}
+
+async function getVideogameById (id){
+    try{
+    let videogames = []
+    videogames.push(await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+    .then(res => {
+        return {
+            name: res.data.name,
+            id: res.data.id,
+            released: res.data.released,
+            rating: res.data.rating,
+            background_image: res.data.background_image,
+            platforms: res.data.platforms.map(p => p.platform.name),
+            genres: res.data.genres.map(g => { return { id: g.id, name: g.name } }),
+            description: res.data.description_raw,
+        }
+    })
+    )
+    return videogames
+} catch (err) {console.log(err)}
 }

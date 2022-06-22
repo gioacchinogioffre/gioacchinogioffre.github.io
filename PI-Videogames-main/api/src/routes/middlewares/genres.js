@@ -19,3 +19,8 @@ router.get('/', async (req, res) => {
     // Genre.findAll().then(genres => res.json(genres))
 
 })
+
+router.get('/:id', async (req, res) => {
+    const genre = await Genre.findOne({where: {id: req.params.id}})
+    res.json(genre)
+})

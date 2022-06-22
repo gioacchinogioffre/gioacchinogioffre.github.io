@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import './Form.css';
-import { connect } from 'react-redux';
-import { createVideogame } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { createVideogame, getGenres} from '../../actions';
 
-let genres =[{id:1, name: 'Action'}, {id:2, name: 'Adventure' } ];
+
 
 export function validate(game) {
     let errors = {}; 
@@ -15,7 +15,7 @@ export function validate(game) {
     return errors; 
   }
 
-export default function Form() {
+ const Form = () => {
     const [game, setGame] = React.useState ({ 
         name: '',
         description: '',
@@ -26,7 +26,16 @@ export default function Form() {
         genres: [],
         });
 
+        useEffect(() => {
+          dispatch(getGenres())
+
+      }, [])
+
+
  const [errors, setErrors] = React.useState({}) 
+ const allGenres = useSelector(state => state.genres);
+ const dispatch = useDispatch()
+
 
  const handleOnChange = (e) => {
     setGame({...game, [e.target.name]: e.target.value})
@@ -35,9 +44,17 @@ export default function Form() {
 
  const handleOnSubmit = (e) => {
      e.preventDefault()
-     createVideogame(game)
+     dispatch(createVideogame(game))
 
  }
+
+ const handleOnGenres = (e) => {
+  e.preventDefault()
+  setGame({...game, genres: [...game.genres, game.genres.push(e.target.value)]})
+
+}
+
+let platforms = ['PC', 'PlayStation', 'PlayStation II', 'PlayStation III', 'PlayStation IV', 'PlayStation V', 'GameBoy', 'Xbox']
 
     return (
        <div>
@@ -61,14 +78,18 @@ export default function Form() {
             <input className={errors.image && 'danger'} type='text' name='image' key='image' value={game.image} onChange={handleOnChange} placeholder='Insert image url'></input>
             {errors.image && <p className='danger'>{errors.image}</p>} 
 
-            <select className='gameGenres' name='Genres' size ='0' multiple>
-              <optgroup label='Genres'>
-            {genres.map(g => (
-                <option key={g.id} value={g.name}>{g.name}</option>
-            ))}
-            </optgroup>
+            <select name='genres' id='genres' onChange={(e) => handleOnGenres(e)}>
+                 <optgroup label='Genres'>
+                        {allGenres.map(g =>
+                       <option value={g.name} key={g.id}>{g.name}</option> )}
+                 </optgroup>
             </select>
-            <select className='gameplatForms'>Platforms</select>
+            <select name='platforms' id='platforms' onChange={(e) => handleOnGenres(e)}>
+                 <optgroup label='Platforms'>
+                        {platforms.map(p =>
+                       <option value={p} key={p}>{p}</option> )}
+                 </optgroup>
+            </select>
 
         <label htmlFor='description'>Description:</label>
             <textarea className={errors.description && 'danger'} form="videogameForm" name='description' key='description' value={game.description} onChange={handleOnChange} placeholder='Describe your game...'></textarea>
@@ -80,18 +101,4 @@ export default function Form() {
     )
 }
 
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//       createVideogame: game => dispatch(createVideogame(game))
-//     }
-//   }
-  
-
-//   function mapStateToProps(state){
-//     return {
-//         genres: state.genres
-//     }
-//   }
-  
-// export default connect(mapStateToProps, mapDispatchToProps)(NavBar); // Conectamos a nuestro componente en primer lugar con el estado global (store) pasándolo como prop mediante mapStateToProps, y en segundo lugar con las actions mediante mapDispatchToProps
+export default Form

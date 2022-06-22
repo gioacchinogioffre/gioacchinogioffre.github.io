@@ -4,7 +4,7 @@ const router = express.Router();
 const { Videogame, Genre } = require('../../db.js');
 const axios = require('axios');
 const {Op} = require('sequelize');
-const { getAllVideogames } = require('./utils.js');
+const { getAllVideogames, getVideogameById, getDbVideogames} = require('./utils.js');
 
 module.exports = router;
 
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     try {
         if(name) {
             videogames = videogames.filter(vg => vg.name.toLowerCase().includes(name.toLowerCase()))
-            videogames.length ? res.send(videogames) : videogames
+            videogames.length ? res.send(videogames.slice(0, 15)) : videogames
         }
         else res.send(videogames);
 
@@ -39,11 +39,14 @@ router.get('/', async (req, res) => {
 
 router.get('/:videogameId', async (req, res) => {
     let { videogameId } = req.params;
-    let videogames = await getAllVideogames()
-    videogames = videogames.filter(vg => vg.id == videogameId)
+    let videogamesDb = await getDbVideogames()
+    let videogameApi = await getVideogameById(videogameId)
+    videogamesDb = videogamesDb.filter(vg => vg.id == videogameId)
+    // videogames = videogames.filter(vg => vg.id == videogameId)
 
     try {
-        if(videogames.length) return res.json(videogames[0])
+        if(videogamesDb.length) return res.json(videogamesDb[0])
+        if(videogameApi.length) return res.json(videogameApi[0])
         else res.status(404).send('There is no video game with that id');
         }
      catch (e) {
@@ -63,9 +66,8 @@ router.post('/', async (req, res) => {
    
    try {
        let newVideogame = await Videogame.create(req.body)
-       console.log(newVideogame)
        await newVideogame.setGenres(genres)
-       res.status(201).send('Videogame created successfully');
+       res.status(201).send({game: newVideogame, msg:'Videogame created successfully'});
    } catch (e) {
     res.status(404).send(e.message);
    }

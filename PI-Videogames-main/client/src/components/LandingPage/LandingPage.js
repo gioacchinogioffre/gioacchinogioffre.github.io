@@ -17,28 +17,36 @@ export class LandingPage extends Component {
         <header className="landingPage">
             <nav>
                 <ul className="navLP">
-                    <li className="pageTitle"> pageName </li>
+                    <li className="pageTitle"> iGioco </li>
                     <button className='signUp'>SIGN UP</button>
                 </ul>
             </nav>
-
-            <div>
-                <button className='button'>
-                    <Link to='/home'>TRY IT FOR FREE</Link>
-                </button>
-            </div>
             
             <div className='info'>
                 <div className='About'></div>
                     <h3>What can you do here?</h3>
                     <p>Search videogames, genres...</p>
 
-                <div className='another info'>Idk what to put here yet</div>
-                
+                <div className='another info'>
+                    <h3>Sponsored By</h3>
+                    <ul> 
+                        <a>Nintendo | </a>
+                        <a>| Sony |</a>
+                        <a>| Xbox |</a>
+                        <a>| VR </a>
+                    </ul>
 
+                </div>
+                
                 <div className='signingUp'></div>
                     <h3>Sign up for free!</h3>
-                    <p>Sign up if you want to receive emails with the latests game info</p>
+                    <p>Sign up if you want to receive news with the latest game info</p>
+            </div>
+            
+            <div>
+                <button className='button'>
+                    <Link to='/home'>TRY IT FOR FREE</Link>
+                </button>
             </div>
         </header>
     )
@@ -48,7 +56,7 @@ export class LandingPage extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-      getGenres: genres => dispatch(getGenres(genres))
+      getGenres: () => dispatch(getGenres())
     }
   }
   

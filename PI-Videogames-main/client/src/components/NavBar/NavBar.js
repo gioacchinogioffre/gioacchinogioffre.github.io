@@ -23,14 +23,14 @@ export function NavBar() {
                 <ul className="list">
                     {/* <h3>Jueguitos</h3> */}
                     <h4 className="list-item">
-                        Jueguitos  |     
+                        iGioco  |     
                         <NavLink exact to="/home">| Home</NavLink> {/*Con el exact, solo se aplican los estilos cuando se encuentre en el path indicado. */}
                         <NavLink to="/about">About</NavLink>
                     </h4>
-                    <div className='searcher'>
+                    {/* <div className='searcher'>
                     <input className='searchVg' type='text' value={title} onChange={handleOnChange} placeholder='Videogame name...'></input>
                     <button type='button' onClick={e => handleOnClick(e)}>SEARCH</button>
-                </div>
+                </div> */}
                 </ul>
                 </form>
             </nav>

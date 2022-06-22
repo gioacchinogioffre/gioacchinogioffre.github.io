@@ -1,0 +1,22 @@
+.vgImage {
+    width: 15%;
+    height: 50%;
+}
+
+.vgContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+    /* background-color: black; */
+
+}
+
+/* body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+} */
