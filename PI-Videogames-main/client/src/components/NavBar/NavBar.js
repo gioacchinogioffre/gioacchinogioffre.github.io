@@ -2,39 +2,37 @@ import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { getVideogames } from '../../actions/index';
 import { connect } from 'react-redux';
-// import './Navbar.css';
+import s from './NavBar.module.css';
+import SearchBar from '../SearchBar/SearchBar'
+import radar from '../Icons/logophotoII.png'
 
 export function NavBar() {
-    const [title, setTitle] = useState('')
+    // const [title, setTitle] = useState('')
 
-    function handleOnChange(e) {
-        setTitle(e.target.value)
-    }
+    // function handleOnChange(e) {
+    //     setTitle(e.target.value)
+    // }
 
-    function handleOnClick(e) {
-        e.preventDefault()
-        getVideogames(title)
-    }
+    // function handleOnClick(e) {
+    //     e.preventDefault()
+    //     getVideogames(title)
+    // }
 
     return (
-        <header className="navbar">
             <nav>
-                <form>
-                <ul className="list">
-                    {/* <h3>Jueguitos</h3> */}
-                    <h4 className="list-item">
-                        iGioco  |     
-                        <NavLink exact to="/home">| Home</NavLink> {/*Con el exact, solo se aplican los estilos cuando se encuentre en el path indicado. */}
-                        <NavLink to="/about">About</NavLink>
-                    </h4>
-                    {/* <div className='searcher'>
-                    <input className='searchVg' type='text' value={title} onChange={handleOnChange} placeholder='Videogame name...'></input>
-                    <button type='button' onClick={e => handleOnClick(e)}>SEARCH</button>
-                </div> */}
-                </ul>
-                </form>
+                 <div className={s.items}>
+                   <div className={s.titleCreate}>
+                    {/* <Link className= {s.link} to ='/home'> <h4>Ki</h4> </Link> */}
+                    <Link className= {s.link} to ='/home'> <img src={radar} alt='radar'></img> </Link>
+                   </div>
+                     <SearchBar/>
+                    <div className={s.userBar}>
+                        <Link className={s.link} to='/logIn' ><a> LOG IN </a></Link>
+                        <a> SIGN UP </a>
+                     </div>
+                    
+                 </div>
             </nav>
-        </header>
     )
 }
 

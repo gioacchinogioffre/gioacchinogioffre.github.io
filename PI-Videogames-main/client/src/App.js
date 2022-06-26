@@ -5,6 +5,8 @@ import { Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import VideogameDetail from "./components/VideogameDetail/VideogameDetail";
 import Form from "./components/Form/Form";
+import { Login } from "./components/Login/Login";
+
 
 
 
@@ -14,8 +16,9 @@ function App() {
   return (
  <React.Fragment>
    <Route exact path='/' component={LandingPage} />
-   <Route path='/home'> <NavBar/><Home/> </Route>
-   <Route path='/videogames/:videogameId' component={VideogameDetail} />
+   <Route exact path='/logIn' component={Login} />
+   <Route path='/home'> <Home/></Route>
+   <Route path='/videogames/:videogameId'  component={VideogameDetail}/>
    {/* <Route path='/genres' component={Genres} /> */}
    <Route path='/createVideoGame' component={Form} />
    <Route path='/about' />

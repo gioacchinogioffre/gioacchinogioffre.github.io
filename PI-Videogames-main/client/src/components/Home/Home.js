@@ -4,6 +4,19 @@ import {  useDispatch, useSelector } from 'react-redux';
 import { getAllVideogames, getFilters, getGenres, getOrders } from '../../actions';
 import h from './Home.module.css';
 import Paginate from '../Paginate/Paginate';
+import { NavBar}  from "../NavBar/NavBar";
+import homeIcon from '../Icons/home.png'
+import xbox from '../Icons/xbox-2.png'
+import play from '../Icons/playstation.png'
+import rating from '../Icons/star-2.png'
+import nintendo from '../Icons/nintendo.png'
+import wii from '../Icons/wii-u.png'
+import android from '../Icons/android.png'
+import linux from '../Icons/linux.png'
+import pc from '../Icons/pc.png'
+import mac from '../Icons/mac.png'
+import add from '../Icons/add.png'
+
 
 
 const Home = () => {
@@ -30,20 +43,19 @@ const Home = () => {
     const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame)
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const prevPage= () => setCurrentPage(currentPage - 1);
-     const nextPage= () => setCurrentPage(currentPage + 1);
-     const showPagination = () => {
-         return ( 
-             <Paginate
-             gamesPerPage={gamesPerPage}
-             allGames={allGames.length}
-             currentPage={currentPage}
-             paginate={paginate}
-             prevPage={prevPage}
-             nextPage={nextPage}
-             />
-         )
-         }
-    
+    const nextPage= () => setCurrentPage(currentPage + 1);
+    //  const showPagination = () => {
+    //      return ( 
+    //          <Paginate
+    //          gamesPerPage={gamesPerPage}
+    //          allGames={allGames.length}
+    //          currentPage={currentPage}
+    //          paginate={paginate}
+    //          prevPage={prevPage}
+    //          nextPage={nextPage}
+    //          />
+    //      )
+    //      }
 
    useEffect(() => {
        dispatch(getGenres())
@@ -68,13 +80,6 @@ const Home = () => {
       dispatch(getFilters(filterByGenre, filterGames, searchByName))
     }
 
-    
-    const [title, setTitle] = useState('')
-
-    const handleOnClickSearch = (e) => {
-      setCurrentPage(1)
-      dispatch(getFilters(filterByGenre, filterByOrigin, title))
-    }
 
     const handleOnSelectOrder = (e) => {
         setCurrentPage(1)
@@ -82,68 +87,108 @@ const Home = () => {
         dispatch(getOrders(orderGames))
       }
 
-    const handleOnChange = (e) => {
-        setTitle(e.target.value)
-    }
+      const [hover, setHover] = useState({home: false, create: false})
+
+      const handleOnHover = (e) => {
+        if (e.target.alt === 'home') setHover({...hover, home:true}) 
+        if (e.target.alt === 'create') setHover({...hover, create:true}) 
+      }
+
+      const handleOnOut = (e) => {
+        if (e.target.alt === 'home') setHover({...hover, home:false}) 
+        if (e.target.alt === 'create') setHover({...hover, create:false}) 
+     }
+
+
+     allGenres.length && console.log(allGenres[0].image_background)
 
     return (
-        <header className="videogames">
+        <header className={h.Home}>
+                     <NavBar>
+                    </NavBar>
 
-                <div className='searcher'>
-                    <input className='searchVg' type='text' value={title} onChange={e=> handleOnChange(e)} placeholder='Videogame name...'></input>
-                    <button type='button' onClick={e => handleOnClickSearch(e)}>SEARCH</button>
-                </div>
-           
-             <div className='createVd'>
-                <Link to='/createVideoGame'><button>Create Game</button></Link>
-            </div>
+         <div className={h.container}>
 
+              <div className={h.firstC}>
+                 <div className={h.Buttons}>
+                <Link className={h.link} to='/home'><img className ={h.homeIcon} src={homeIcon} alt='home' onMouseOver={(e) => handleOnHover(e)} onMouseOut={(e) => handleOnOut(e)}/>
+                {hover.home ? <h3 className={h.textRenders}>Home</h3> : false}</Link>
+                <br></br>
+                <Link className={h.link} to='/createVideoGame'><img className ={h.homeIcon} src={add} alt='create' onMouseOver={(e) => handleOnHover(e)} onMouseOut={(e) => handleOnOut(e)}/>
+                {hover.create ? <h3 className={h.textRenders}>Create Game</h3> : false}</Link>
+                 </div>
 
-            <div className='filters'>
-                <div className='genre_games_filters'>
-                        <select name='all_db_games' id='games' size='4' onChange={(e) => handleOnSelectGames(e)}>
-                            <optgroup label='Show'>
+                <div className={h.filters}>
+                    <br></br>
+                        <select className={h.filters} name='all_db_games' id='games' size='4' onChange={(e) => handleOnSelectGames(e)}>
+                            <optgroup  label='Show'>
                                 <option value='all'>All Games</option>
                                 <option value='api'>Api Games</option>
                                 <option value='db'>Created Games</option>
                             </optgroup>
                         </select>
-                        <select name='genres' id='genres' size='20' onChange={(e) => handleOnSelectGenre(e)}>
+                        <br></br><br></br><br></br>
+                        <div className={h.genres}>
+                        {allGenres.length && allGenres.map(g => 
+                        <img className={h.genreIcon} src={g.image_background}></img>)}
+                        <select  className={h.filters} name='genres' id='genres' size='20' onChange={(e) => handleOnSelectGenre(e)}>
                             <optgroup label='Genres'>
                                {allGenres.map(g =>
                                <option value={g.name} key={g.id}>{g.name}</option> )}
                             </optgroup>
                          </select>
-                </div>
-                <div className='alphabetic_rating_orders'>
-                      <label>Order By</label>
-                        <select name='alphabetic' size='6' onChange={(e) => handleOnSelectOrder(e)}>
-                            <optgroup label='Alphabetic'>
+                        </div>
+                        <br></br><br></br><br></br>
+                        <select className={h.filters} name='alphabetic' size='6' onChange={(e) => handleOnSelectOrder(e)}>
+                            <optgroup label='Order By'>
                                 <option value='a-z'>A-Z</option>
                                 <option value='z-a'>Z-A</option>
                             </optgroup>
                             <optgroup label='Rating'>
-                                <option value='ascending'>Ascending</option>
+                                <option  value='ascending'>Ascending</option>
                                 <option value='descending'>Descending</option>
                         </optgroup>
                          </select>
                 </div>
              </div>
 
+                    <div>
+                    {allGames.length >= 100 && <h1 className={h.trending}>Trending now</h1>}
                     <div className={h.vgContainer}>
-                    ACA VAN LOS JUEGUITOS 🙂
-                    <ul>
                         {currentGames.map(vg => (
-                            <div key={vg.id}>
-                                <img className={h.vgImage} src={vg.background_image} alt='videogameImage'/>
-                                <h3><Link to={`/videogames/${vg.id}`}>{vg.name}</Link></h3>
-                                <li>Platforms: {vg.platforms.join(' | ')}</li>
-                                <li>Genres:  {vg.genres.map(g => g.name).join(' | ')}</li>
-                            </div>)) 
+                            <Link className={h.link} to={`/videogames/${vg.id}`}>
+                                    <div className={h.cardRating}>
+                                        <a>{vg.rating}</a>
+                                        <img  src={rating}></img> 
+                                    </div>
+                                <div className={h.Card} key={vg.id}>
+                                    <img className={h.vgImage} src={vg.background_image} alt='videogameImage'/>
+                                         <div className ={h.cardTitle}>{vg.name}</div>
+                                         <div className ={h.cardGenres}>{vg.genres.map(g => g.name).join(' | ')}</div>
+                                         {/* <div className={h.cardRating}>
+                                         <a>{`|    ${vg.rating}   |`}</a>
+                                        <img  src={rating}></img> 
+                                         </div> */}
+                                    <div className={h.platforms}>
+                                         {vg.platforms.filter(p => p.includes('Xbox')).length > 0 && <img className={h.imageP} src={xbox}></img>}
+                                         {vg.platforms.filter(p => p.includes('PlayStation')).length > 0 && <img className={h.imageP} src={play}></img>}
+                                         {vg.platforms.filter(p => p.includes('Wii U')).length > 0 &&  <img className={h.imageP} src={wii}></img>}
+                                         {vg.platforms.filter(p => p.includes('Nintendo')).length > 0 &&  <img className={h.imageP} src={nintendo}></img>}
+                                         {vg.platforms.filter(p => p.includes('Android')).length > 0 &&  <img className={h.imageP} src={android}></img>}
+                                         {vg.platforms.filter(p => p.includes('Linux')).length > 0 &&  <img className={h.imageP} src={linux}></img>}
+                                         {vg.platforms.filter(p => p.includes('PC')).length > 0 &&  <img className={h.imageP} src={pc}></img>}
+                                         {vg.platforms.filter(p => p.includes('macOS')).length > 0 &&  <img className={h.imageP} src={mac}></img>}
+                                    </div>
+                            </div></Link>)) 
                             }
-                    </ul>
-                    <div>{showPagination()}</div>
-             </div>
+                    </div>
+                    </div>
+    
+            </div>
+                    <div className={h.paginate}>
+                    <Paginate  gamesPerPage={gamesPerPage}  allGames={allGames.length}  currentPage={currentPage}
+                    paginate={paginate} prevPage={prevPage}  nextPage={nextPage} />
+                    </div>
 
         </header>
     )

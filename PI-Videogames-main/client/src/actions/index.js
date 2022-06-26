@@ -50,8 +50,11 @@ export function getVideogames(title){
             }
             
             export function deleteVideogame(id) {
-                return {type: DELETE_VIDEOGAME, payload: id}
-                
+                return function (dispatch) {
+                    return axios.delete(`http://localhost:3001/videogames/${id}`)
+                    .then(msg =>
+                        dispatch({ type: DELETE_VIDEOGAME, payload: msg }))
+                }    
             }
             
             export function getGenres() {

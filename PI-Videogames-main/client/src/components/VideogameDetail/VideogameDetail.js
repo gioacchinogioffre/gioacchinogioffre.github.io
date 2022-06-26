@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import './VideogameDetail.css';
 import {connect} from 'react-redux';
-import { getVideogameDetail} from '../../actions/index';
+import { getVideogameDetail, deleteVideogame} from '../../actions/index';
+import NavBar from '../NavBar/NavBar';
+import s from './VideogameDetail.module.css'
+import rating from '../Icons/rating.png'
+import swal from 'sweetalert';
 
 
 export class VideogameDetail extends Component {
@@ -12,22 +15,67 @@ export class VideogameDetail extends Component {
         this.props.getVideogameDetail(videogameDetail)
     }
 
+    handleOnDelete = () => {
+        console.log(this.props.vgDetail[0].id)
+        this.props.deleteVideogame(this.props.vgDetail[0].id)
+        // this.props.history.push('/home')
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this videogame!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+             this.props.deleteVideogame(this.props.vgDetail.id)
+             this.props.history.push('/home')
+             swal("Videogame has been deleted!", {
+                 icon: "success",
+                });
+            } else {
+              swal("Your videogame is safe!");
+            }
+          });
+    }
+
+    handleOnClick = () => {
+        this.props.history.push('/home')
+    }
+
     render(){
     return (  
-      this.props.vgDetail && this.props.vgDetail.map(vg =>
-        <div key={vg.id} className="containerDetail">
-            <button><Link to ='/home'>Return</Link></button>
-            <br></br>
-            <img src ={vg.background_image} alt='imageVgD'/>
-            <h3>{vg.name}</h3>
-            <h4>Rating: {vg.rating}</h4>
-            <h4>Released: {vg.released}</h4>
+        <div>
+        <NavBar/>
+        <button onClick={this.handleOnClick}>Return</button>
+        <br></br>
+     {this.props.vgDetail && this.props.vgDetail.map(vg =>
+        <div key={vg.name}>
+
+            <div key={vg.id} className={s.container}>
+              <div><img className={s.image} src ={vg.background_image} alt='imageVgD'/></div>
+              <div className={s.vgContainer}>
+                 <h1>{vg.name}</h1>
+                 <p className={s.description}>{vg.description}</p>
+              </div>
+           </div>
+
+            <div>
+                    <h3>Rating: {vg.rating}</h3><img className={s.imageP} src={rating}></img> 
+            </div>
+
+                    <h3>Released: {vg.released}</h3>
             <div>Platforms: {vg.platforms.join(' | ')}</div>
+
             <div>Genres: {vg.genres.map(g => g.name).join(' | ')}</div>
-            <p>{vg.description}</p>
+                {vg.createdOnDb && <button onClick={this.handleOnDelete}>DELETE GAME</button>}
         </div>
-        ))
-        }
+        )
+    }
+    </div>
+    )
+}
 }
 
 
@@ -39,7 +87,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) { // Creamos función para pasar por props las actions a nuestro componente Movie.
     return {
-        getVideogameDetail: videogameId => dispatch(getVideogameDetail(videogameId)) // Creamos propiedad getMovieDetail que será la definición de una función que despachará la action. La action recibe el id de una movie. Importamos previamente la función getMovieDetail de nuestro archivo actions para usarla.
+        getVideogameDetail: videogameId => dispatch(getVideogameDetail(videogameId)),
+        deleteVideogame: id => dispatch(deleteVideogame(id)),
     }
 }
 

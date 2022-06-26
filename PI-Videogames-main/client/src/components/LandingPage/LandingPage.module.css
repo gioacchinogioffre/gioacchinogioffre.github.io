@@ -1,0 +1,144 @@
+.landingPage {
+    color: rgba(255, 255, 255, 0.873);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: antiquewhite; */
+}
+
+.landingPage button {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    transition:0.2s;
+    /* border */
+    border-radius: 30px;
+    width: 500px;
+    height: 50px;
+    font-size: 20px;
+    background-color: #f9a448;
+}
+
+.landingPage button:hover {
+    transition:0.2s;
+    border-radius: 30px;
+    width: 510px;
+    height: 52px;
+    font-size: 23px;
+    background-color: #f9a448;
+}
+
+.link {
+    text-decoration: none;
+    color: rgba(247, 243, 243, 0.824)
+}
+
+.navLp {
+    display: flex;
+    flex-direction:row;
+    /* align-content: center; */
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9a448;;
+    color:rgba(252, 252, 252, 0.768);
+    margin-top: 0;
+    margin-bottom: 1%;
+    height: 60px;
+}
+
+.Title {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 40px;
+    margin-left: 40px;
+}
+
+
+.signUp {
+    color:black;
+    background-color: transparent;
+    border:none;
+    margin-right: 20px;
+    font-size: 18px;
+    transition: 0.5s;
+}
+
+.signUp:hover {
+    transition: 0.5s;
+    cursor:pointer;
+    text-decoration: underline overline;
+    /* text-decoration: overline; */
+}
+
+.radar {
+    width: 50px;
+    height: 50px;
+    margin-left: 10%;
+    margin-top: 30px
+}
+
+.titleDiv {
+    display: flex;
+    /* margin-right: 20px; */
+    /* margin-left: 20px; */
+    /* flex-direction: row; */
+}
+
+.video {
+    width: 100%;
+    background-color: black;
+    height: 350px;
+}
+
+.info {
+  display:grid;
+  width:85%;
+  grid-template-columns: 33% 33% 33%;
+  align-items: center;
+  margin-bottom: 50px;
+  justify-items: center;
+  /* justify-content: space-between; */
+  /* margin-left: 100px; */
+  /* margin-right: 100px; */
+}
+
+
+.sponsor {  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icons {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.sponsors {
+    transition: 0.3s;
+    width: 130px;
+    margin-right: 50px;
+    margin-left: 50px;
+    
+}
+
+.sponsors:hover {
+    transition: 0.3s;
+    width: 140px;
+    cursor: pointer;
+}
+
+.first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left : 1px white solid;
+    border-right: 1px white solid;
+    padding-left: 20px;
+    padding-right: 20px;
+
+
+}
+

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from 'antd'
+import s from './Paginate.module.css'
 
 const Paginate = (props) => {
     const { gamesPerPage, allGames, currentPage, paginate, prevPage, nextPage } = props;
@@ -11,18 +11,16 @@ const Paginate = (props) => {
   }
 
   return (
-    <nav>
-        <div>
+        <div className={s.paginate}>
         {currentPage !==1 && (
-        <li><Button  type='primary' style={{cursor: 'pointer'}} onClick={() => prevPage()}>Previous</Button></li>)}
+        <button  type='primary' onClick={() => prevPage()}>{"< Previous"}</button>)}
         {pageNumbers.map((num) => (
-            <div key={num}><a style={{cursor: 'pointer'}} onClick={() => paginate(num)}>{num}</a></div>
+          <a key={num} onClick={() => paginate(num)}>{num}</a>
         ))}
 
         {pageNumbers.length !== currentPage && (
-        <li><Button type='primary' style={{cursor: 'pointer'}} onClick={() => nextPage()}>Next</Button></li>)}
+        <button type='primary' onClick={() => nextPage()}>{'> Next'} </button>)}
         </div>
-    </nav>
     )
 }
 

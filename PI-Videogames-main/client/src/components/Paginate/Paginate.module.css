@@ -1,0 +1,40 @@
+.paginate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 300px;
+    font-size: 20px
+}
+
+.paginate button {
+    transition: 0.3s;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 20px;
+    border: none;
+    color: white;
+    background-color: transparent
+}
+
+.paginate button:hover {
+    transition: 0.3s;
+    font-size: 25px;
+    color: #f9a348db;
+
+}
+
+.paginate a {
+    transition: 0.3s;
+    cursor: pointer;
+    padding: 5px;
+    color: white
+}
+
+.paginate a:hover {
+    font-size:  25px;
+    color: #f9a348db;
+
+}

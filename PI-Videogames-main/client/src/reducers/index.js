@@ -6,7 +6,8 @@ const initialState = {
     videogames: [],
     videogameDetail:[],
     genres: [],
-    orders: []
+    orders: [],
+    msg: ''
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -18,7 +19,7 @@ export default function rootReducer(state = initialState, action) {
 
         case GET_VIDEOGAME_DETAIL: return {...state, videogameDetail: [action.payload]}
 
-        case CREATE_VIDEOGAME: return {...state}
+        case CREATE_VIDEOGAME: return {...state, videogames: [...state.videogames, action.payload.game], msg: action.payload.msg}
 
         case DELETE_VIDEOGAME: return {...state}
 
@@ -29,22 +30,26 @@ export default function rootReducer(state = initialState, action) {
         let byOrigin = action.payload.filterByOrigin
         let byGenre = action.payload.filterByGenre
         let byName = action.payload.searchByName
+        console.log(byName)
       
         if(byName) filters = filters.filter(vg => vg.name.toLowerCase().includes(byName.toLowerCase()))
 
-        if(byGenre !== 'all') filters = filters.filter(videogame => byGenre == videogame.genres.find(genre => genre.name == byGenre).name)
-
+        if(byGenre !== 'all') { 
+                filters = filters.filter(videogame => {
+                let genre = videogame.genres.find(vg => vg.name.includes(byGenre))
+                return genre})
+        }
+        
         if(byOrigin === 'all') filters =[...state.videogames]
         if(byOrigin === 'db') filters = filters.filter(videogame => videogame.createdOnDb === true)
         if(byOrigin === 'api')  filters = filters.filter(videogame => videogame.createdOnDb === undefined)
-
+        
         return {...state, filteredVideogames: filters}
 
         case GET_ORDERS:
         let vgOrder = [...state.filteredVideogames]
         let byOrder = action.payload
         let byRating = action.payload
-        console.log(byRating)
     
         if(byOrder === 'ascending') vgOrder = vgOrder.sort((a,b) => {
             if(a.rating < b.rating) return 1

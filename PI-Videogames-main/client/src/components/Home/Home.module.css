@@ -1,22 +1,190 @@
 .vgImage {
-    width: 15%;
-    height: 50%;
+        object-fit:cover;
+        height: 100%;
+        width:100%;
+        background-color: black;
+        border-radius: 10px;
+}
+
+.Home {
+   display: flex;
+   flex-direction: column;
 }
 
 .vgContainer{
+    margin-top: 2%;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: repeat(5, 1fr)
+}
+
+.container{
+    display: grid;
+    margin-top: 2%;
+    grid-template-columns: 20% 80%;
+}
+
+.Card {
+    transition: 0.3s;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    margin: auto;
-    /* background-color: black; */
+    /* background:#f9a348db; */
+    background:black;
+    width:330px;
+    height: 430px;
+    box-shadow: 8px 8px 4px 0 rgba(255, 255, 255, 0.135);
+    border-radius:10px;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.869);
+    border: 2px solid #f9a348db;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 5%;  
+    /* justify-content: end; */
+    align-items: center; 
+}
+
+.Card:hover {
+    transition: 0.3s;
+    width: 340px;
+    height: 440px;
+    box-shadow: 12px 12px 8px 0 rgba(255, 255, 255, 0.252);
 
 }
 
-/* body {
+
+.platforms {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f9a348db;
+}
+
+.trending {
+    font-size: 50px;
+}
+
+.cardTitle {
+    display:flex;
+    font-size: 25px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border: #f9a448db solid 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /* margin-left: 5px */
+}
+
+.cardRating {
+    width: 80px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 63%;
+    font-size: 20px;
+    background-color: #f9a348db;
+    color: black;
+    border-radius: 10px;
+    border: groove white
+    /* margin-left: 5px */
+}
+
+.cardGenres {
+    display: flex;
+    justify-content: center;
+    align-items: space-around;
+    font-size: 20px;
+    padding-top: 10px;
+    margin-bottom: 15px;
+    /* border-bottom: 3px #f9a348db groove; */
+    /* border-top: 3px #f9a348db groove; */
+    width: 100%;
+}
+.cardRating img {
+    width: 20px;
+    padding-left:5px
+}
+
+.link {
+    text-decoration: none;
+}
+
+.filters {
+    appearance: none;
+    overflow: hidden;
+    border: none;
+    cursor: inherit;
+    background-color: black;
+    margin-left: 4%;
+    margin-right: 5%;
+    margin-top: 5%;
+    font-size: larger;
+    color: rgba(255, 255, 255, 0.895)
+}
+
+.genres {
+    display: grid;
+    flex-direction: column
+}
+
+.genreIcon {
+    width: 50px;
+    height: 40px;
+    margin-right: 5px;
+    border:#f9a348db solid 1px;
+    border-radius: 10px;
+}
+
+.searchBar {
+    display: flex;
+    justify-content: center;
+}
+
+.inputSearch {
+    border-radius: 5px;
+    width: 40%;
+    height: 1.5rem
+}
+
+.Buttons {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-around;
-} */
+    margin-left: 25px;
+}
+
+.homeIcon {
+    transition: 0.3s;
+    width: 15%;
+    margin: 2% 0 0 2%;
+    background-color: white;
+    border-radius: 200px;
+}
+
+.textRenders {
+    transition: 3s;
+    color: white
+    
+}
+
+.homeIcon:hover {
+    transition: 0.3s;
+    width: 17%;
+}
+
+.imageP {
+    width: 10%;
+    padding:1.3%
+}
+
+
+.filters optgroup option  {
+   transition: 0.3s;
+}
+
+.filters optgroup option:hover {
+    transition: 0.3s;
+    font-size: 25px;
+    color:#f9a448;
+    cursor: pointer;
+
+ }
