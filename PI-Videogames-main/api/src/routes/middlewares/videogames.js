@@ -74,4 +74,14 @@ router.post('/', async (req, res) => {
 
 })
 
+router.delete('/:videogameId', async (req, res) => {
+    let { videogameId } = req.params;
+    try {
+        let videogame = await Videogame.findByPk(videogameId)
+        await videogame.destroy()
+        res.status(200).send({msg:'Videogame deleted successfully'});
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+})
 

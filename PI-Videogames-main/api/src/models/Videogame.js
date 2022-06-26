@@ -1,3 +1,5 @@
+// const image = require('./logophoto.jpg');
+
 const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
@@ -30,10 +32,10 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.DECIMAL,
       validate: {
-        min: 0,
+        min: 1,
         max: 5,
       },
-      defaultValue: 0
+      defaultValue: 1
     },
 
     platforms: {
@@ -43,7 +45,7 @@ module.exports = (sequelize) => {
 
     background_image: {
       type: DataTypes.STRING,
-      defaultValue: 'https://via.placeholder.com/300x200',
+      defaultValue: './logophoto.jpg'
     },
 
     createdOnDb: {
