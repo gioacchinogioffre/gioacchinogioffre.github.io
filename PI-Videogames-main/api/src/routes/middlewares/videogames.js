@@ -50,7 +50,7 @@ router.get('/:videogameId', async (req, res) => {
         else res.status(404).send('There is no video game with that id');
         }
      catch (e) {
-        res.status(404).send(e.message);
+        res.status(404).send('There is no video game with that id');
     }
 })
 
