@@ -1,13 +1,14 @@
-import React, { useEffect, useDispatch, Component} from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getGenres } from '../../actions';
 import { connect } from 'react-redux';
 import s from './LandingPage.module.css'
-import radar from '../Icons/rastreador.png'
+import radar from '../Icons/logophoto3.png'
 import sony from '../Icons/sony.png'
 import nintendo from '../Icons/nintendo3.png'
 import battle from '../Icons/battle.png'
 import sega from '../Icons/sega.png'
+import photo from '../Icons/landingphoto_2.png'
 
 
 
@@ -22,21 +23,21 @@ export class LandingPage extends Component {
          <div>
             <nav className={s.navLp}>
                 <div className={s.titleDiv}>
-                    <h1 className={s.Title}> Ki </h1>
+                    {/* <h1 className={s.Title}> Ki </h1> */}
                     <img className={s.radar} src={radar} alt='radar'></img>
                 </div>
                 <div>
-                    <a className={s.signUp}> LOG IN </a>
+                    <a className={s.signUp} > LOG IN </a>
                     <button className={s.signUp}>SIGN UP</button>
                 </div>
             </nav>
 
             <div className={s.landingPage}>
-                <div><h1 className={s.title}>THE MOST POPULAR VIDEOGAME API IN THE WHOLE WORD</h1></div>
+                <div><h1 className={s.title}>THE MOST POPULAR GAMING API IN THE UNIVERSE</h1></div>
                 <br></br>
             
                 <div className={s.video}>
-                <iframe className={s.video} autoplay='1' width="560" height="315" src="https://www.youtube.com/embed/ItuSud27wkU?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <img className={s.video} src={photo} alt='landingPhoto'></img>
                 </div>
 
                 <div className={s.info}>

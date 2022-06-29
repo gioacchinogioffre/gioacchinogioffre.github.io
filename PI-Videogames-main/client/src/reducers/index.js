@@ -1,4 +1,4 @@
-import { GET_VIDEOGAME_DETAIL, GET_SEARCH_VIDEOGAMES, DELETE_VIDEOGAME, CREATE_VIDEOGAME, GET_ALL_VIDEOGAMES, GET_GENRES, GET_FILTERS, GET_ORDERS} from '../actions/index';
+import { GET_VIDEOGAME_DETAIL, DELETE_VIDEOGAME, CREATE_VIDEOGAME, GET_ALL_VIDEOGAMES, GET_GENRES, GET_FILTERS, GET_ORDERS} from '../actions/index';
 
 
 const initialState = {
@@ -15,8 +15,6 @@ export default function rootReducer(state = initialState, action) {
     switch(action.type) {
         case GET_ALL_VIDEOGAMES: return {...state, videogames: action.payload, filteredVideogames:action.payload}
 
-        case GET_SEARCH_VIDEOGAMES: return {...state, videogames: action.payload}
-
         case GET_VIDEOGAME_DETAIL: return {...state, videogameDetail: [action.payload]}
 
         case CREATE_VIDEOGAME: return {...state, videogames: [...state.videogames, action.payload.game], msg: action.payload.msg}
@@ -30,20 +28,54 @@ export default function rootReducer(state = initialState, action) {
         let byOrigin = action.payload.filterByOrigin
         let byGenre = action.payload.filterByGenre
         let byName = action.payload.searchByName
-        console.log(byName)
-      
-        if(byName) filters = filters.filter(vg => vg.name.toLowerCase().includes(byName.toLowerCase()))
+        let byPlatforms = action.payload.filterByPlatforms
 
-        if(byGenre !== 'all') { 
-                filters = filters.filter(videogame => {
-                let genre = videogame.genres.find(vg => vg.name.includes(byGenre))
-                return genre})
-        }
+        console.log(byGenre)
+      
+        // if(byGenre !== 'all') { 
+        //     filters = filters.filter(videogame => {
+        //         let genre = videogame.genres.find(vg => vg.name.includes(byGenre))
+        //         return genre})
+        //     }
+
+          if(byGenre.length > 0) { 
+            if (byGenre.includes('All')) {
+                
+            } else {
+                for (let i = 0; i < byGenre.length; i++) {
+                    filters = filters.filter(videogame => {
+                        let genre = videogame.genres.find(vg => vg.name.includes(byGenre[i]))
+                        return genre})
+                }
+            }
+            }
+            // console.log(byGenre)
+
+        //  if(byPlatforms !== 'All Platforms') { 
+        //     filters = filters.filter(videogame => {
+        //         let platform = videogame.platforms.find(p => p == byPlatforms)
+        //         return platform})
+        //         }
         
-        if(byOrigin === 'all') filters =[...state.videogames]
-        if(byOrigin === 'db') filters = filters.filter(videogame => videogame.createdOnDb === true)
-        if(byOrigin === 'api')  filters = filters.filter(videogame => videogame.createdOnDb === undefined)
-        
+                if(byPlatforms.length > 0) { 
+                    if(byPlatforms.includes('All Platforms')) {
+                    }
+                    else {for (let i = 0; i < byPlatforms.length; i++) {
+                            filters = filters.filter(videogame => {
+                                let platform = videogame.platforms.find(p => p == byPlatforms[i])
+                                return platform})
+                        }
+                        }
+                        }
+
+
+                
+        if(byOrigin === 'Created') filters = filters.filter(videogame => videogame.createdOnDb === true)
+        if(byOrigin === 'Api')  filters = filters.filter(videogame => videogame.createdOnDb === undefined)
+        if(byOrigin === 'All Games' && byGenre === 'All Genres') filters =[...state.videogames]
+            
+        if(byName) filters = filters.filter(vg => vg.name.toLowerCase().includes(byName.toLowerCase()))
+            
         return {...state, filteredVideogames: filters}
 
         case GET_ORDERS:
@@ -51,12 +83,12 @@ export default function rootReducer(state = initialState, action) {
         let byOrder = action.payload
         let byRating = action.payload
     
-        if(byOrder === 'ascending') vgOrder = vgOrder.sort((a,b) => {
+        if(byOrder === 'descending') vgOrder = vgOrder.sort((a,b) => {
             if(a.rating < b.rating) return 1
             if(a.rating > b.rating) return -1
             return 0})
 
-        if(byOrder === 'descending') vgOrder = vgOrder.sort((a,b) => {
+        if(byOrder === 'ascending') vgOrder = vgOrder.sort((a,b) => {
              if(a.rating > b.rating) return 1
              if(a.rating < b.rating) return -1
              return 0})

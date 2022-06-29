@@ -4,6 +4,8 @@ body {
   margin: 0;
   font-family: 'Helvetica', sans-serif;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('https://wallpaperaccess.com/full/823503.jpg');
+  background-size: cover;
 }
 
 code {

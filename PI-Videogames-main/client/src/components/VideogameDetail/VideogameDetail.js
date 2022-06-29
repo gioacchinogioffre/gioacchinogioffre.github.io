@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { getVideogameDetail, deleteVideogame} from '../../actions/index';
 import NavBar from '../NavBar/NavBar';
@@ -10,16 +10,13 @@ import swal from 'sweetalert';
 
 export class VideogameDetail extends Component {
 
-    componentDidMount() { // Invocamos la función componentDidMount para que cada vez que el componente sea invocado...
+    componentDidMount() {
         const videogameDetail = this.props.match.params.videogameId
         this.props.getVideogameDetail(videogameDetail)
     }
 
-    handleOnDelete = () => {
-        console.log(this.props.vgDetail[0].id)
+    handleOnDeleteGame = () => {
         this.props.deleteVideogame(this.props.vgDetail[0].id)
-        // this.props.history.push('/home')
-
         swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this videogame!",
@@ -48,30 +45,41 @@ export class VideogameDetail extends Component {
     return (  
         <div>
         <NavBar/>
-        <button onClick={this.handleOnClick}>Return</button>
-        <br></br>
-     {this.props.vgDetail && this.props.vgDetail.map(vg =>
+     {this.props.vgDetail.length ?
+      this.props.vgDetail.map(vg =>
         <div key={vg.name}>
 
             <div key={vg.id} className={s.container}>
               <div><img className={s.image} src ={vg.background_image} alt='imageVgD'/></div>
               <div className={s.vgContainer}>
                  <h1>{vg.name}</h1>
+                 <h3>Released: {vg.released}</h3>
                  <p className={s.description}>{vg.description}</p>
               </div>
            </div>
 
-            <div>
-                    <h3>Rating: {vg.rating}</h3><img className={s.imageP} src={rating}></img> 
-            </div>
+           <div className={s.info}>
+                <div className={s.infoGP}><p>Genres: {vg.genres.map(g => g.name).join(' | ')}</p></div>
 
-                    <h3>Released: {vg.released}</h3>
-            <div>Platforms: {vg.platforms.join(' | ')}</div>
+                <div className={s.infoGP}>
+                    <h3>Rating: {vg.rating}</h3>
+                    {/* <img className={s.imageP} src={rating}></img>  */}
+                </div>
 
-            <div>Genres: {vg.genres.map(g => g.name).join(' | ')}</div>
-                {vg.createdOnDb && <button onClick={this.handleOnDelete}>DELETE GAME</button>}
-        </div>
-        )
+                <div className={s.infoGP}><p>Platforms: {vg.platforms.join(' | ')}</p></div>
+
+                {vg.createdOnDb && <button onClick={this.handleOnDeleteGame}>DELETE GAME</button>}
+
+                </div>
+
+           </div>
+
+        ) 
+        : <main>
+        <h1 className={s.errorTitle}>4<span><i class="fas fa-ghost"></i></span>4</h1>
+        <h2 className={s.errorSubTitle}>Error: 404 game not found</h2>
+        <button className={s.button} onClick={this.handleOnClick}>Return Home</button>
+      </main>
     }
     </div>
     )
@@ -85,7 +93,7 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) { // Creamos función para pasar por props las actions a nuestro componente Movie.
+function mapDispatchToProps(dispatch) { 
     return {
         getVideogameDetail: videogameId => dispatch(getVideogameDetail(videogameId)),
         deleteVideogame: id => dispatch(deleteVideogame(id)),

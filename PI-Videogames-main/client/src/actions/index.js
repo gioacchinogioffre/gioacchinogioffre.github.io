@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export const GET_SEARCH_VIDEOGAMES = 'GET__SEARCH_VIDEOGAMES';
+// export const GET_SEARCH_VIDEOGAMES = 'GET__SEARCH_VIDEOGAMES';
 export const GET_VIDEOGAME_DETAIL = 'GET_VIDEOGAME_DETAIL';
 export const CREATE_VIDEOGAME = 'CREATE_VIDEOGAME';
 export const DELETE_VIDEOGAME = 'DELETE_VIDEOGAME';
@@ -20,15 +20,15 @@ export function getAllVideogames(){
     }
 }
 
-export function getVideogames(title){
-    console.log(title, 'JORGE')
-    return function(dispatch) {
-        return fetch(`http://localhost:3001/videogames?name=${title}`)
-        .then(res => res.json())
-        .then(games =>
-            dispatch({ type: GET_SEARCH_VIDEOGAMES, payload: games }))
-        }
-    }
+// export function getVideogames(title){
+//     console.log(title, 'JORGE')
+//     return function(dispatch) {
+//         return fetch(`http://localhost:3001/videogames?name=${title}`)
+//         .then(res => res.json())
+//         .then(games =>
+//             dispatch({ type: GET_SEARCH_VIDEOGAMES, payload: games }))
+//         }
+//     }
     
     export function getVideogameDetail(id){
         return function(dispatch) {
@@ -68,6 +68,6 @@ export function getVideogames(title){
 export function getOrders(orders) {
     return {type: GET_ORDERS, payload: orders} 
 } 
-export function getFilters(filterByGenre, filterByOrigin, searchByName) {
-    return {type: GET_FILTERS, payload: {filterByGenre, filterByOrigin, searchByName}}
+export function getFilters(filterByGenre, filterByOrigin, searchByName, filterByPlatforms) {
+    return {type: GET_FILTERS, payload: {filterByGenre, filterByOrigin, searchByName, filterByPlatforms}}
 }

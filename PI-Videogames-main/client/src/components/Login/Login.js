@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import NavBar from '../NavBar/NavBar';
 // import s from './VideogameDetail.module.css'
 // import swal from 'sweetalert';
 
@@ -9,6 +10,7 @@ export class Login extends Component {
     render(){
     return (  
         <div class="login-box">
+            <NavBar></NavBar>
              <h2>Login</h2>
             <form>
                 <div class="user-box">
