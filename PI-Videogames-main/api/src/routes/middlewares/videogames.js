@@ -45,6 +45,7 @@ router.get('/:videogameId', async (req, res) => {
     // videogames = videogames.filter(vg => vg.id == videogameId)
 
     try {
+        console.log(videogameApi, videogamesDb)
         if(videogamesDb.length) return res.json(videogamesDb[0])
         if(videogameApi.length) return res.json(videogameApi[0])
         else res.status(404).send('There is no video game with that id');
