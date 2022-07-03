@@ -2,38 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import s from './Form.module.css';
 import { useDispatch, useSelector, } from 'react-redux';
-import { createVideogame, getGenres} from '../../actions';
-import swal from 'sweetalert';
+import { createVideogame, getAllVideogames, getGenres} from '../../actions';
 import photo from '../Icons/logophoto.jpg';
 import NavBar from '../NavBar/NavBar';
+import Modal from '../Modals/ModalForm';
 
 export function validate(game) {
     
     let errors = {}; 
-    if (!/^[a-zA-Z0-9]/.test(game.name)) {errors.name = 'name can only contain letters and numbers'} 
-    if (!game.name.length) {errors.name = 'name is required'} 
-    if (game.name[game.name.length -1] === " ") {errors.name = 'name cannot end with white spaces'} 
-    if (game.name.length > 40) {errors.name = 'name must be shorter'} 
-    if (!/^[a-zA-Z0-9]/.test(game.description)) {errors.description = 'description can only contain letters and numbers'} 
-    if (!game.description) {errors.description = 'description is required'} 
-    if (!game.platforms.length) {errors.platforms = 'platforms are required'}; 
-    if (!game.genres.length) {errors.genres = 'genres are required'} 
-    if(game.rating > 5 || game.rating < 1) {errors.rating = 'rating is invalid'}
-    if(game.background_image.length > 255) {errors.background_image = 'url is too long'}
-    // if(game.background_image.length > 0) {if(!/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i.test(game.bacground_image)) {errors.background_image = 'url is invalid'}}
+    if(game.name.length>0) {
+        if (!/^[a-zA-Z0-9 ]+$/.test(game.name)) {errors.name = 'name can only contain letters and numbers'} 
+        if (game.name[game.name.length -1] === " ") {errors.name = 'name cannot end with white spaces'} 
+        if (game.name.length > 40) {errors.name = 'name must be shorter'} 
+    }
+    
+    if(game.description.length>0) {
+        if (!/^[a-zA-Z0-9 .,?'":]+$/.test(game.description)) {errors.description = 'description can only contain letters and numbers'} 
+        if (game.description.length>500) {errors.description = 'description must be shorter'}
+    }
+    
+    if(game.rating.length>0) {
+        if(game.rating > 5 || game.rating < 1 || game.rating.length>4 || game.rating[0] == 0) {errors.rating = 'rating is invalid'}
+    }
+    
+    if (!game.platforms.length) {errors.platforms = 'platforms are required'}
+    if (!game.genres.length) {errors.genres = 'genres are required'}
+
     return errors; 
-  }
+}
 
 
- const Form = () => {
-     
-     const formatDate = () => {
-         const date = new Date();
-         return date.toISOString().slice(0, 10);
-        }
-        
-        const [game, setGame] = React.useState ({ 
-            name: '',
+const Form = () => {
+    
+    const formatDate = () => {
+        const date = new Date();
+        return date.toISOString().slice(0, 10);
+    }
+    
+    const [game, setGame] = React.useState ({ 
+        name: '',
             description: '',
             rating: "",
             released: formatDate(),
@@ -48,34 +55,44 @@ export function validate(game) {
         useEffect(() => {
             dispatch(getGenres())
         }, [])
-
-
-
- const [errors, setErrors] = React.useState({}) 
+        
+        
+        
+        const [errors, setErrors] = React.useState({}) 
  const allGenres = useSelector(state => state.genres);
  const dispatch = useDispatch()
-
-
+ 
+ 
  const handleOnChange = (e) => {
      setGame({...game, [e.target.name]: e.target.value})
      setErrors(validate({...game, [e.target.name]: e.target.value})) 
     }
-
-    const [control, setControl] = useState(false)
     
-    const controlForm = () => {
-        if (Object.keys(errors).length) return setControl(true)
+    const [showModal, setShowModal] = useState(false)
+    
+    const setModal = () => {
+        if (!showModal) return s.notShow;
+        else return s.showModal
     }
-
- const handleOnSubmit = (e) => {
-    e.preventDefault();
-    controlForm()
-    if (!Object.keys(errors).length) {
-        if(game.name.length) {
-            if(game.background_image.length === 0) {game.background_image = photo}
-            game.genres = game.genres.map(g => parseInt(g))
-            swal("Videogame created!", "", "success")}
-            dispatch(createVideogame(game))
+    
+    
+    const handleOnSubmit = (e) => {
+        e.preventDefault()
+        if (!Object.keys(errors).length) {
+            if(game.name.length) {
+                if(game.rating.length===0) delete game.rating
+                // if(game.released.length===0) delete game.released
+                if(game.background_image.length === 0) {game.background_image = photo}
+                game.genres = game.genres.map(g => parseInt(g))
+                console.log(game)
+                dispatch(createVideogame(game))
+                dispatch(getAllVideogames())
+                setShowModal(true)
+                setTimeout(() => {
+                setShowModal(false)
+                history.push('/home')
+            }, 2500)
+        }
         }
  }
     
@@ -110,52 +127,50 @@ else{
 let platforms = ['PC', 'PlayStation', 'PlayStation 2', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series S/X', 'Nintendo Switch', 'macOS', 'Android', 'iOS', 'Linux', 'PS Vita', 'Wii U', 'Nintedo 3DS' ]
 
     return (
-        <div>
+        <div className={showModal && s.opacityBG}>
 
         <NavBar></NavBar>
-        <div className={s.title}><h3>Create your own Game!</h3></div>
+        <div className={s.title}><h3>Upload your own Game!</h3></div>
        <form className={s.container} onSubmit={handleOnSubmit} id="videogameForm">
         
        <div className={s.containerII}>
          <div className={s.subContainer}>
             <div className={s.subTitles}>
-            <label htmlFor='name' >Name:</label> 
-                <input className={s.inputs} type='text' name='name' key='name' value={game.name} onChange={handleOnChange} placeholder='Example: World Of Warcraft'></input> 
-                {(control && errors.name) && (<p className={s.danger}>{errors.name}</p>)}
+            <label htmlFor='name' >Name*:</label> 
+                <input className={s.inputs} type='text' name='name' key='name' value={game.name} onChange={handleOnChange} placeholder='Example: World Of Warcraft' required ></input> 
+                {errors.name && <p className={s.danger}>{errors.name}</p>}
             </div>
 
             <div className={s.subTitles} >
             <label htmlFor='released'>Released Date:</label> 
-                <input className={s.iDate} type='date' name='released' key='released' value={game.date} onChange={handleOnChange} placeholder='07/07/2022'></input> 
-                {(control && errors.date) && (<p className={s.danger}>{errors.date}</p>)} 
+                <input className={s.iDate} type='date' name='released' key='released' value={game.released} onChange={handleOnChange} placeholder='07/07/2022'></input> 
+               {errors.date && <p className={s.danger}>{errors.date}</p>} 
             </div>
             
             <div className={s.subTitles}>
             <label htmlFor='rating'>Rating:</label> 
-                <input className={s.iRating} type='number' name='rating' key='rating' value={game.rating} onChange={handleOnChange} placeholder='From 1 to 5'></input> 
-                {(control && errors.rating) && (<p className={s.danger}>{errors.rating}</p>)} 
+                <input title='max. two decimals' className={s.iRating} type='number' name='rating' key='rating' value={game.rating} onChange={handleOnChange} placeholder='From 1 to 5'></input> 
+                {errors.rating && <p className={s.danger}>{errors.rating}</p>} 
             </div>
 
                 <div>
-                <select className={s.selectOption} name='genres' id='genres' onChange={(e) => handleOnSelect(e, e.target.name)}>
-                    <optgroup label='Genres'>
+                <select required title='max. 3 genres' className={s.selectOption} name='genres' id='genres' onChange={(e) => handleOnSelect(e, e.target.name)}>
+                    <option selected disabled value='Genres'>Genres*</option>
                             {allGenres.map(g =>
                         <option value={g.id} name={g.name} key={g.id}>{g.name}</option> )}
-                    </optgroup>
                 </select>
-                <select className={s.selectOption} name='platforms' id='platforms' onChange={(e) => handleOnSelect(e, e.target.name)}>
-                    <optgroup label='Platforms'>
+                <select required title='max. 6 platforms' className={s.selectOption} name='platforms' id='platforms' onChange={(e) => handleOnSelect(e, e.target.name)}>
+                    <option selected disabled value='platforms'>Platforms*</option>
                             {platforms.map(p =>
                         <option value={p} name={p} key={p}>{p}</option> )}
-                    </optgroup>
                 </select>
-                        {(control && errors.genres) && <p className={s.danger}>{errors.genres}</p>} 
-                        {(control && errors.platforms) && <p className={s.danger}>{errors.platforms}</p>} 
+                        {errors.genres && <p className={s.danger}>{errors.genres}</p>} 
+                        {errors.platforms && <p className={s.danger}>{errors.platforms}</p>} 
                 </div>
     
             <div>
-            <label htmlFor='description' className={s.descT} >Description:</label>{(control && errors.description) && <p className={s.danger}>{errors.description}</p>} 
-                <textarea className={s.description} form="videogameForm" name='description' key='description' value={game.description} onChange={handleOnChange} placeholder='Describe your game...'></textarea>
+            <label htmlFor='description' className={s.descT} >Description*:</label>{errors.description && <p className={s.danger}>{errors.description}</p>} 
+                <textarea required className={s.description} form="videogameForm" name='description' key='description' value={game.description} onChange={handleOnChange} placeholder='Describe your game...' ></textarea>
             </div>
 
             <div className={s.containeRenders} id='renders'>
@@ -177,11 +192,12 @@ let platforms = ['PC', 'PlayStation', 'PlayStation 2', 'PlayStation 3', 'PlaySta
             </div>
 
             <div className={s.imageContainer}>
-                <img className={s.photoRender} src={photo} alt='photoRender'></img>
+                <img className={s.photoRender} src={game.background_image.includes('http') ? game.background_image : photo} alt='photoRender'></img>
                 <label className={s.imageRender} htmlFor='image'>Image:</label>
-                    <input className={errors.background_image && s.danger} type='text' name='background_image' key='background_image' value={game.background_image} onChange={handleOnChange} placeholder='Insert image url'></input>
-                    {(control && errors.background_image) && <p className={s.danger}>{errors.background_image}</p>} 
+                    <input className={errors.background_image && s.danger} type='text' pattern='https?://[\w-]+(.[\w-]+)+[/#?]?.*$' title='image url' name='background_image' key='background_image' value={game.background_image} onChange={handleOnChange} placeholder='Insert image url'></input>
+                    {errors.background_image && <p className={s.danger}>{errors.background_image}</p>} 
                 <input className={s.create} type='submit' value='CREATE!'></input> 
+                <div className={setModal()}><Modal /></div>
             </div>
        </div>
         <div>

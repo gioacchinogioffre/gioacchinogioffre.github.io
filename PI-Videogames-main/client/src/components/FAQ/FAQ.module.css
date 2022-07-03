@@ -1,0 +1,66 @@
+.container {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+}
+
+.profile{
+    margin-top: 40px;
+    width: 300px;
+    height: 350px;
+    border: 3px groove #f9a448;
+}
+
+.about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40%;
+    border: 3px groove #f9a448;
+    width: 400px;
+
+}
+
+.about p {
+    width: 320px;
+    margin-bottom: 30px;
+}
+
+.faq {
+    width: 30vw;
+    margin-left: 10%;
+}
+
+.contact {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.linkedin {
+    transition: 0.3s;
+    border:none;
+    width: 40px;
+    height: 40px;
+}
+
+.linkedin:hover {
+    transition: 0.3s;
+    cursor: pointer;
+    transform: scale(1.10)
+}
+
+.github {
+    transition: 0.3s;
+    width: 55px;
+    height: 45px;
+}
+
+.github:hover {
+    transition: 0.3s;
+    cursor: pointer;
+    transform: scale(1.10)
+}

@@ -1,0 +1,26 @@
+.mymodal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* border: 1px solid #ccc; */
+    background: black;
+    opacity: 0.9;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 300px 1000px 400px 1000px
+  }
+  
+
+  .content {
+    display: flex;
+    border-radius: 4px;
+    height: 300px;
+    max-height: 300px;
+    width: 600px;
+    max-width: 600px;
+  }
+
+ 
+  

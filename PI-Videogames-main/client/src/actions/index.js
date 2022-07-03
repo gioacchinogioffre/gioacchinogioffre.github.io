@@ -8,6 +8,8 @@ export const GET_ALL_VIDEOGAMES = 'GET_ALL_VIDEOGAMES';
 export const GET_GENRES = 'GET_GENRES';
 export const GET_FILTERS = 'GET_FILTERS';
 export const GET_ORDERS = 'GET_ORDERS';
+export const CLEAN_DETAIL = 'CLEAN_DETAIL';
+export const SET_LOADING = 'SET_LOADING';
 
 
 
@@ -20,15 +22,13 @@ export function getAllVideogames(){
     }
 }
 
-// export function getVideogames(title){
-//     console.log(title, 'JORGE')
-//     return function(dispatch) {
-//         return fetch(`http://localhost:3001/videogames?name=${title}`)
-//         .then(res => res.json())
-//         .then(games =>
-//             dispatch({ type: GET_SEARCH_VIDEOGAMES, payload: games }))
-//         }
-//     }
+export function cleanDetail(){
+    return {type: CLEAN_DETAIL} 
+    }
+
+export function setLoading(){
+    return {type: SET_LOADING} 
+        }
     
     export function getVideogameDetail(id){
         return function(dispatch) {
@@ -43,7 +43,7 @@ export function getAllVideogames(){
         export function createVideogame(game){
             return function (dispatch) {
                 return axios.post(`http://localhost:3001/videogames`, game)
-                .then(res => res.json())
+                // .then(res => res.data.json())
                 .then(game =>
                     dispatch({ type: CREATE_VIDEOGAME, payload: {game:game.data.game, msg: game.data.message}}))
                 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {  useDispatch, useSelector } from 'react-redux';
-import { getAllVideogames, getFilters, getGenres, getOrders } from '../../actions';
+import { getAllVideogames, getFilters, getGenres, getOrders, setLoading } from '../../actions';
 import h from './Home.module.css';
 import Paginate from '../Paginate/Paginate';
 import NavBar from "../NavBar/NavBar";
@@ -14,7 +14,8 @@ import android from '../Icons/android.png'
 import linux from '../Icons/linux.png'
 import pc from '../Icons/pc.png'
 import mac from '../Icons/mac.png'
-import loading from '../Icons/loading3.gif'
+import loadingGif from '../Icons/loading3.gif'
+import {NotFound} from '../Modals/ModalNotFound';
 
 
 
@@ -34,7 +35,16 @@ const Home = () => {
 
     const allGames = useSelector(state => state.filteredVideogames);
     const allGenres = useSelector(state => state.genres);
+    const loading = useSelector(state => state.loading);
+
     // const [loading, setLoading] = useState(true)
+
+    const [showModal, setShowModal] = useState(false)
+    // const setModal = () => {
+    //     if (!showModal) return h.notShow;
+    //     else return h.showModal
+    // }
+
     
     //Paginate
     const [currentPage, setCurrentPage] = useState(1);
@@ -56,6 +66,8 @@ const Home = () => {
     useEffect(() => {
         setCurrentPage(1)
     }, [allGames])
+
+    useEffect(() => {return () => dispatch(setLoading())}, [])
     
 
     // const handleOnSelectGenre = (e) => {
@@ -116,12 +128,15 @@ const Home = () => {
       }
 
       const handleOnClear = () => {
-        setFilterByGenre('All Genres')
+        setFilterByGenre([])
+        // setFilterByGenre('All Genres')
         setFilterByOrigin(null)
-        setFilterByPlatforms('All Platforms')
+        setFilterByPlatforms([])
+        // setFilterByPlatforms('All Platforms')
         setSearchByName(null)
         setRenderFilters({origin: '', genres:[], platforms:[]})
-        dispatch(getFilters('All Genres', 'All Games', null, 'All Platforms'))
+        dispatch(getFilters([], null, null, []))
+        // dispatch(getFilters('All Genres', 'All Games', null, 'All Platforms'))
       }
 
       const handleOnDelete = (e, prop) => {
@@ -141,8 +156,11 @@ const Home = () => {
             dispatch(getFilters(filterByGenre, 'All Games', searchByName, filterByPlatforms))
         }
         setCurrentPage(1)
-      
       }
+
+      const handleOnDeleteGame = (id) => {
+        setShowModal(true)
+    }
 
 
     //  allGenres.length && console.log(allGenres[0].image_background)
@@ -152,14 +170,14 @@ const Home = () => {
     return (
         
         <header className={h.Home}>
-                     <NavBar filterByGenre={filterByGenre} filterByOrigin={filterByOrigin} searchByName={searchByName} filterByPlatforms={filterByPlatforms}>
+                     <NavBar filterByGenre={filterByGenre} filterByOrigin={filterByOrigin} searchByName={searchByName} filterByPlatforms={filterByPlatforms} handleOnClear={handleOnClear}>
                     </NavBar>
 
          <div className={h.container}>
 
               <div className={h.firstC}>
                  <div >
-                    <button  onClick={() => handleOnClear()} className={h.clearFilters}>Clear filters</button>
+                    {(renderFilters.origin.length>0 || renderFilters.genres.length>0 || renderFilters.platforms.length>0) && <button  onClick={() => handleOnClear()} className={h.clearFilters}>Remove filters</button>}
                  </div>
 
                 <div className={h.filters}>
@@ -178,18 +196,18 @@ const Home = () => {
                                 <option value='Created'>Created Games</option>
                             </optgroup>
                         </select>
-                        <br></br><br></br><br></br>
+                        {/* <br></br><br></br><br></br> */}
                         <div className={h.genres}>
                         {/* {allGenres.length && allGenres.map(g => 
                         <img className={h.genreIcon} src={g.image_background} alt='genreIcon'></img>)} */}
-                        <select  className={h.filters} name='genres' id='genres' size='21' onChange={(e) => handleOnSelectGenre(e)}>
+                        <select focus className={h.filters} name='genres' id='genres' size='21' onChange={(e) => handleOnSelectGenre(e)}>
                             <optgroup label='Genres'>
                                 <option value='All Genres'>All Genres</option>
                                {allGenres.map(g =>
                                <option value={g.name} key={g.id}>{g.name}</option> )}
                             </optgroup>
                          </select>
-                        <br></br><br></br>
+                        {/* <br></br><br></br> */}
                         <select  className={h.filters} name='platforms' id='platforms' size='21' onChange={(e) => handleOnSelectPlatforms(e)}>
                             <optgroup label='Platforms'>
                                 <option value='All Platforms'>All Platforms</option>
@@ -201,29 +219,30 @@ const Home = () => {
                 </div>
              </div>
                     <div>
-                    <div className={h.orders}>Sort by: 
+                    <div className={h.orders}>
+                        <h4>Sort by: </h4>
                      <select name='alphabetic' onChange={(e) => handleOnSelectOrder(e)}>
-                            <optgroup label='Order By'>
+                                <option selected disabled value='alphabetic'>Name</option>
                                 <option value='a-z'>A-Z</option>
                                 <option value='z-a'>Z-A</option>
-                            </optgroup>
                          </select>
                         <select name='rating' onChange={(e) => handleOnSelectOrder(e)}>
-                            <optgroup label='Rating' >
+                            <option selected disabled value='rating'>Rating</option>
                                 <option  value='ascending'>Ascending</option>
                                 <option value='descending'>Descending</option>
-                            </optgroup>
                         </select>
                     </div>
                     {allGames.length >= 100 && <h1 className={h.trending}>Trending now</h1>}
+                    {/* <div className={setModal()}><ModalDelete/></div> */}
                     <div className={h.vgContainer}>
-                         {currentGames.length ? currentGames.map(vg => (
+                         {!loading ? (currentGames.length ? currentGames.map(vg => (
+                            <div className={h.cardC}>
                             <Link className={h.link} to={`/videogames/${vg.id}`}>
                                     <div className={h.cardRating}>
                                         <p>{vg.rating}</p>
-                                        <img alt='ratingIcon' src={rating}></img> 
+                                        <img alt='ratingIcon' src={rating}></img>
                                     </div>
-                                <div className={h.Card} key={vg.id}>
+                                    <div className={h.Card} key={vg.id}>
                                     <img className={h.vgImage} src={vg.background_image} alt='videogameImage'/>
                                          <div className ={h.cardTitle}>{vg.name}</div>
                                          <div className ={h.cardGenres}>{vg.genres.map(g => g.name).join(' | ')}</div>
@@ -238,11 +257,11 @@ const Home = () => {
                                          {vg.platforms.filter(p => p.includes('PC')).length > 0 &&  <img className={h.imageP} src={pc} alt='pc'></img>}
                                          {vg.platforms.filter(p => p.includes('macOS')).length > 0 &&  <img className={h.imageP} src={mac} alt='mac'></img>}
                                     </div>
-                                    {vg.createdOnDb && <div className={h.deleteGame}><button>DELETE GAME</button></div>}
-                            </div></Link>)) 
-                            : <div>
-                                <h1>Loading...</h1>
-                                <img src={loading} alt='loading'></img>
+                            </div></Link> 
+                            </div>)) : <NotFound/>)
+                            : <div className={h.loading}>
+                                <img src={loadingGif} alt='loading'></img>
+                                <h1>loading...</h1>
                               </div>
                             }
                     </div>

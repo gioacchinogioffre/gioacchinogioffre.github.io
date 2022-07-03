@@ -24,6 +24,16 @@
     grid-template-columns: 20% 80%;
 }
 
+.cardC{
+    transition: 0.3s;
+}
+
+.cardC:hover{
+    transition: 0.3s;
+    transform: scale(1.05);
+    /* box-shadow: 8px 8px 4px 0 rgba(255, 255, 255, 0.135); */
+
+}
 .Card {
     transition: 0.3s;
     display: flex;
@@ -32,9 +42,9 @@
     background:black;
     width:330px;
     height: 430px;
-    box-shadow: 8px 8px 4px 0 rgba(255, 255, 255, 0.135);
-    border-radius:10px;
-    margin-bottom: 30px;
+    box-shadow: 8px 8px 20px 0 rgba(255, 255, 255, 0.155);
+    border-radius: 10px 10px 0px 0px;
+    /* margin-bottom: 30px; */
     color: rgba(255, 255, 255, 0.869);
     border: 2px solid #f9a348db;
     font-family: Arial, Helvetica, sans-serif;
@@ -45,8 +55,8 @@
 
 .Card:hover {
     transition: 0.3s;
-    width: 340px;
-    height: 440px;
+    /* width: 340px;
+    height: 440px; */
     box-shadow: 12px 12px 8px 0 rgba(255, 255, 255, 0.252);
 
 }
@@ -64,9 +74,9 @@
 }
 
 .clearFilters {
-    width: 200px;
+    width: 180px;
     height: 50px;
-    font-size: 25px;;
+    font-size: 20px;;
     color : rgba(255, 255, 255, 0.882);
     background-color: transparent;
     border-radius: 30px;
@@ -92,9 +102,10 @@
     background-color: transparent;
     color: #f9a348db;
     border-color: rgba(255, 255, 255, 0.836);
-    width: fit-content;
-    height: fit-content;
+    max-width: fit-content;
+    max-height: fit-content;
     margin-bottom: 20px;
+    font-size: 15px;
 }
 
 .renderFilters button:hover {
@@ -124,11 +135,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 63%;
+    margin-left:280px;
     font-size: 20px;
     background-color: #f9a348db;
     color: black;
     border-radius: 10px;
+    margin-top: 30px;
 }
 
 .cardGenres {
@@ -148,8 +160,17 @@
     padding-left:5px
 }
 
-.deleteGame {
-   height: 70px;
+.deleteGame {  
+   display: flex;
+   justify-content: center;
+   background-color: black;
+   border: 2px solid #f9a348db;
+   width:330px;
+   height: 40px;
+   margin-left: 5%;  
+   margin-bottom: 30px;
+   border-radius: 0px 0px 10px 10px;
+
 }
 .deleteGame button {
     margin-top: 10px;
@@ -174,15 +195,24 @@
 .filters {
     appearance: none;
     overflow: hidden;
-    border: none;
+    border:none;
+    outline: none;
     cursor: inherit;
     background-color: transparent;
     margin-left: 4%;
     margin-right: 5%;
-    margin-top: 5%;
-    font-size: larger;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 22px;
     color: rgba(255, 255, 255, 0.895)
 }
+
+.filters:focus {
+    background: transparent;
+    background-color: transparent;
+    outline: none;
+}
+
 
 .genres {
     display: grid;
@@ -220,7 +250,7 @@
 
 .filters optgroup option:hover {
     transition: 0.3s;
-    font-size: 25px;
+    font-size: 23px;
     color:#f9a448;
     cursor: pointer;
  }
@@ -235,5 +265,34 @@
  .orders select {
     background-color: transparent;
     color: white;
+    outline: none;
+    margin-right: 2px;
  }
+
+ .orders h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-top: 10px;
+   
+ }
+
+ .notShow{
+    display: none
+}
+
+.showModal {
+    display: flex;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 500px;
+    height: 90vh;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+}
 

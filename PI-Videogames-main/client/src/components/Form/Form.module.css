@@ -1,6 +1,12 @@
 .danger {
     font-size: 15px;
     color: red;
+    margin-left: 20px;
+}
+
+.opacityBG {
+    background-blend-mode: darken;
+    /* opacity: 0.9; */
 }
 
 
@@ -12,19 +18,22 @@
     height: 700px;
     border-radius: 10px;
     border: 3px solid #f9a448;
-    margin-left:15%;
+    margin-left:8%;
+    margin-bottom: 200px;
 }
+
 
 .title {
     display:flex;
     font-size: 40px;
-    margin-left: 275px;
+    margin-left: 120px;
 }
 
 .subTitles {
     display: flex;
     font-size: 25px;
     margin-bottom: 50px;
+    align-items: center;
 }
 
 .descT {
@@ -47,7 +56,10 @@
 }
 
 .photoRender {
-    width: 350px;
+    width: 330px;
+    max-width: 350px;
+    height: 250px;
+    max-height: 250px;
     border:#f9a448 solid 3px;
     border-radius: 10px;
 }
@@ -58,7 +70,17 @@
     margin-left: 105px;
 }
 
+.imageContainer label {
+    display: flex;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
 .inputs {
+    appearance: none;
+    overflow: hidden;
+    border:none;
+    outline: none;
     color: white;
     margin-left: 15px;
     border: none;
@@ -75,6 +97,10 @@
 }
 
 .description {
+    appearance: none;
+    overflow: hidden;
+    border:none;
+    outline: none;
     width: 650px;
     height: 100px;
     margin-left: 30px;
@@ -99,6 +125,10 @@
 }
 
 .iDate {
+    appearance: none;
+    overflow: hidden;
+    border:none;
+    outline: none;
     color: rgba(255, 255, 255, 0.804);
     background-color: transparent;
     border:none;
@@ -109,6 +139,10 @@
 }
 
 .iRating {
+    appearance: none;
+    overflow: hidden;
+    border:none;
+    outline: none;
     color: rgba(255, 255, 255, 0.804);
     background-color: transparent;
     border:none;
@@ -138,15 +172,22 @@
 
 .renders {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     border: 1px solid white;
     border-radius: 50px;
     margin-bottom: 20px;
     margin-right: 20px;
-    height: 50px;
+    margin-left: 30px;
+    font-size: 18px;
+    width: fit-content;
+    height: fit-content;
     background-color: rgba(255, 255, 255, 0.828);
     color: rgb(11, 39, 71)
+}
+
+.renders span {
+    margin-left: 10px;
 }
 
 .renders button {
@@ -160,4 +201,12 @@
     transition: 0.3s;
     color:  red;
     font-size: 20px;;
+}
+
+.notShow{
+    display: none
+}
+
+.showModal {
+    display: flex;
 }

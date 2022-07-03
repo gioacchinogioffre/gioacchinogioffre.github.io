@@ -6,7 +6,7 @@ import radar from '../Icons/logophoto3.png'
 import homeIcon from '../Icons/home.png'
 import add from '../Icons/add.png'
 
-export default function NavBar({filterByGenre, filterByOrigin, searchByName, filterByPlatforms}) {
+export default function NavBar({filterByGenre, filterByOrigin, searchByName, filterByPlatforms, handleOnClear}) {
 
   const [hover, setHover] = useState({home: false, create: false})
 
@@ -33,11 +33,11 @@ export default function NavBar({filterByGenre, filterByOrigin, searchByName, fil
                       </div>
                    </div>
 
-                     <SearchBar filterByGenre={filterByGenre} filterByOrigin={filterByOrigin} searchByName={searchByName} filterByPlatforms={filterByPlatforms}/>
+                     <SearchBar filterByGenre={filterByGenre} filterByOrigin={filterByOrigin} searchByName={searchByName} filterByPlatforms={filterByPlatforms} handleOnClear={handleOnClear}/>
                     <div className={s.userBar}>
                         <Link className={s.link} to='/logIn' ><a> LOG IN </a></Link>
                         <a> SIGN UP </a>
-                        <a> FAQ </a>
+                        <Link className={s.link} to ='/faq'><a> FAQ </a></Link>
                      </div>
                     
                  </div>

@@ -9,6 +9,7 @@ import nintendo from '../Icons/nintendo3.png'
 import battle from '../Icons/battle.png'
 import sega from '../Icons/sega.png'
 import photo from '../Icons/landingphoto_2.png'
+// import photo from '../Icons/landing.jpeg'
 
 
 
@@ -24,16 +25,17 @@ export class LandingPage extends Component {
             <nav className={s.navLp}>
                 <div className={s.titleDiv}>
                     {/* <h1 className={s.Title}> Ki </h1> */}
-                    <img className={s.radar} src={radar} alt='radar'></img>
+                    <Link><img className={s.radar} src={radar} alt='radar'></img></Link>
                 </div>
                 <div>
                     <a className={s.signUp} > LOG IN </a>
                     <button className={s.signUp}>SIGN UP</button>
+                    <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
                 </div>
             </nav>
 
             <div className={s.landingPage}>
-                <div><h1 className={s.title}>THE MOST POPULAR GAMING API IN THE UNIVERSE</h1></div>
+                <div><h1 className={s.title}>THE MOST POPULAR GAMING DATABASE IN THE UNIVERSE</h1></div>
                 <br></br>
             
                 <div className={s.video}>
@@ -42,18 +44,19 @@ export class LandingPage extends Component {
 
                 <div className={s.info}>
                     <div className={s.first}>
-                        <h2>What can you do here?</h2>
-                        <p>Search videogames, genres...crear Jorges ajskdjklasdlkasdks</p>
+                        <h2>More than 900k games!</h2>
+                        <p>Supporting all genres<br></br> 30+ platforms and counting</p>
                     </div>
 
                     <div className={s.first}>
-                        <h2>What can you do here?</h2>
-                        <p>Search videogames, genres..dasjklasldkajskldjskdzsljdz.</p>
+                        <h2>IT'S FREE!</h2>
+                        <p>Sign up to keep updated about the gaming world <br></br>and be a member of our universe </p>
+                        {/* <p>Sign up to keep updated about the gaming world and be a member of our universe </p> */}
                     </div>
 
                     <div className={s.first}>
-                        <h2>It's free!</h2>
-                        <p>Register if you want to receive news with the latest game info</p>
+                        <h2>Show us your talent</h2>
+                        <p>Upload your own videogame <br></br>and get it ranked by the community!</p>
                     </div>
 
                  </div>
@@ -65,10 +68,10 @@ export class LandingPage extends Component {
                      <div className={s.sponsor} >
                             <h2>Sponsored by</h2>
                             <div className={s.icons}>
-                                <Link exact to='https://www.sony.net'><img className={s.sponsors} src={sony} alt='sony'/></Link>
-                                <Link exact to='https://www.nintendo.com'><img className={s.sponsors} src={nintendo} alt='nintendo'/></Link>
-                                <Link exact to='https://www.capcom.com'><img className={s.sponsors} src={battle} alt='battle'/></Link>
-                                <Link exact to='https://www.capcom.com'><img className={s.sponsors} src={sega} alt='sega'/></Link>
+                                <a href='https://www.sony.net' target="_blank"><img className={s.sponsors} src={sony} alt='sony'/></a>
+                                <a href='https://www.nintendo.com' target='_blank'><img className={s.sponsors} src={nintendo} alt='nintendo'/></a>
+                                <a href='https://us.shop.battle.net/' target='_blank'><img className={s.sponsors} src={battle} alt='battle'/></a>
+                                <a href='https://www.sega.es' target='_blank'><img className={s.sponsors} src={sega} alt='sega'/></a>
                             </div>
                      </div>
                     

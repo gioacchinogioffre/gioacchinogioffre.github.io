@@ -1,4 +1,4 @@
-import { GET_VIDEOGAME_DETAIL, DELETE_VIDEOGAME, CREATE_VIDEOGAME, GET_ALL_VIDEOGAMES, GET_GENRES, GET_FILTERS, GET_ORDERS} from '../actions/index';
+import { GET_VIDEOGAME_DETAIL, DELETE_VIDEOGAME, CREATE_VIDEOGAME, GET_ALL_VIDEOGAMES, GET_GENRES, GET_FILTERS, GET_ORDERS, CLEAN_DETAIL, SET_LOADING} from '../actions/index';
 
 
 const initialState = {
@@ -6,20 +6,25 @@ const initialState = {
     videogames: [],
     videogameDetail:[],
     genres: [],
-    orders: [],
-    msg: ''
+    // orders: [],
+    msg: '',
+    loading: true
 }
 
 export default function rootReducer(state = initialState, action) {
 
     switch(action.type) {
-        case GET_ALL_VIDEOGAMES: return {...state, videogames: action.payload, filteredVideogames:action.payload}
+        case GET_ALL_VIDEOGAMES: return {...state, videogames: action.payload, filteredVideogames:action.payload, loading:false}
 
-        case GET_VIDEOGAME_DETAIL: return {...state, videogameDetail: [action.payload]}
+        case GET_VIDEOGAME_DETAIL: return {...state, videogameDetail: [action.payload], loading:false}
 
         case CREATE_VIDEOGAME: return {...state, videogames: [...state.videogames, action.payload.game], msg: action.payload.msg}
 
         case DELETE_VIDEOGAME: return {...state}
+
+        case CLEAN_DETAIL: return {...state, videogameDetail: []}
+
+        case SET_LOADING: return {...state, loading: true}
 
         case GET_GENRES: return {...state, genres: action.payload}
 
