@@ -8,18 +8,11 @@ import ryuk from '../Icons/ryuk.png';
 import gameover from '../Icons/gameover2.png';
 
 
-
-
-
-// Modal.setAppElement("#root");
-
 export default function ModalDelete({createdOnDb, id}) {
 
    const [show, setShow] = React.useState(false);
    const [success, setSuccess] = React.useState(false);
    const history = useHistory();
-
-
    const dispatch = useDispatch();
 
    
@@ -40,7 +33,6 @@ export default function ModalDelete({createdOnDb, id}) {
  const handleOnClick = () => {
     setShow(true)
  }
-
 
   return (
     <div>

@@ -31,36 +31,28 @@
 .cardC:hover{
     transition: 0.3s;
     transform: scale(1.05);
-    /* box-shadow: 8px 8px 4px 0 rgba(255, 255, 255, 0.135); */
-
 }
+
 .Card {
     transition: 0.3s;
     display: flex;
     flex-direction: column;
-    /* background:#f9a348db; */
     background:black;
     width:330px;
     height: 430px;
     box-shadow: 8px 8px 20px 0 rgba(255, 255, 255, 0.155);
     border-radius: 10px 10px 0px 0px;
-    /* margin-bottom: 30px; */
     color: rgba(255, 255, 255, 0.869);
     border: 2px solid #f9a348db;
     font-family: Arial, Helvetica, sans-serif;
     margin-left: 5%;  
-    /* justify-content: end; */
     align-items: center; 
 }
 
 .Card:hover {
     transition: 0.3s;
-    /* width: 340px;
-    height: 440px; */
     box-shadow: 12px 12px 8px 0 rgba(255, 255, 255, 0.252);
-
 }
-
 
 .platforms {
     display: flex;
@@ -73,49 +65,6 @@
     color: rgba(255, 255, 255, 0.912)
 }
 
-.clearFilters {
-    width: 180px;
-    height: 50px;
-    font-size: 20px;;
-    color : rgba(255, 255, 255, 0.882);
-    background-color: transparent;
-    border-radius: 30px;
-    border: 2px groove white;
-    margin-left: 15px;
-    margin-bottom: 50px;
-    margin-top: 40px;
-}
-
-.clearFilters:hover {
-    color: #f9a348db;
-    border-color: #f9a348db;
-    cursor: pointer;
-}
-
-.renderFilters {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 20px;
-}
-
-.renderFilters button {
-    background-color: transparent;
-    color: #f9a348db;
-    border-color: rgba(255, 255, 255, 0.836);
-    max-width: fit-content;
-    max-height: fit-content;
-    margin-bottom: 20px;
-    font-size: 15px;
-}
-
-.renderFilters button:hover {
-    color: white;
-    border-color: #f9a348db;
-    cursor:pointer;
-}
-
-
-
 .cardTitle {
     display:flex;
     font-size: 25px;
@@ -125,7 +74,6 @@
     border: #f9a448db solid 2px;
     padding-top: 5px;
     padding-bottom: 5px;
-    /* margin-left: 5px */
 }
 
 .cardRating {
@@ -151,8 +99,6 @@
     padding-top: 10px;
     margin-bottom: 15px;
     margin-left: 10px;
-    /* border-bottom: 3px #f9a348db groove; */
-    /* border-top: 3px #f9a348db groove; */
     width: 100%;
 }
 .cardRating img {
@@ -160,59 +106,9 @@
     padding-left:5px
 }
 
-.deleteGame {  
-   display: flex;
-   justify-content: center;
-   background-color: black;
-   border: 2px solid #f9a348db;
-   width:330px;
-   height: 40px;
-   margin-left: 5%;  
-   margin-bottom: 30px;
-   border-radius: 0px 0px 10px 10px;
-
-}
-.deleteGame button {
-    margin-top: 10px;
-    color:#f9a448;
-    border-radius: 30px;
-    border: none;
-    background-color: transparent;
-    font-size: 15px;
-    margin-bottom: 10px;
-}
-
-.deleteGame button:hover {
-    color: white;
-    /* border-color: white; */
-    cursor:pointer;
-}
-
 .link {
     text-decoration: none;
 }
-
-.filters {
-    appearance: none;
-    overflow: hidden;
-    border:none;
-    outline: none;
-    cursor: inherit;
-    background-color: transparent;
-    margin-left: 4%;
-    margin-right: 5%;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    font-size: 22px;
-    color: rgba(255, 255, 255, 0.895)
-}
-
-.filters:focus {
-    background: transparent;
-    background-color: transparent;
-    outline: none;
-}
-
 
 .genres {
     display: grid;
@@ -227,33 +123,10 @@
     border-radius: 10px;
 }
 
-.searchBar {
-    display: flex;
-    justify-content: center;
-}
-
-.inputSearch {
-    border-radius: 5px;
-    width: 40%;
-    height: 1.5rem
-}
-
 .imageP {
     width: 10%;
     padding:1.3%
 }
-
-
-.filters optgroup option  {
-   transition: 0.3s;
-}
-
-.filters optgroup option:hover {
-    transition: 0.3s;
-    font-size: 23px;
-    color:#f9a448;
-    cursor: pointer;
- }
 
  .orders {
     display: flex;
@@ -291,8 +164,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 500px;
+    margin-left: 550px;
     height: 90vh;
-    /* background-color: rgba(0, 0, 0, 0.5); */
+    color: rgba(255, 255, 255, 0.818)
+}
+
+.loading img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 40px;
 }
 

@@ -3,7 +3,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* border: 1px solid #ccc; */
     background: black;
     opacity: 0.9;
     overflow: auto;
@@ -16,12 +15,10 @@
   .content {
     display: grid;
     grid-template-columns: 50% 50%;
-    /* border-radius: 4px; */
     height: 300px;
     max-height: 300px;
     width: 600px;
     max-width: 600px;
-    /* border: 2px groove white; */
   }
 
   .content button {
@@ -33,7 +30,6 @@
 
   .content button:hover {
     cursor: pointer;
-    /* transform: scale(1.05); */
      color:red;
      border-color:red
   }

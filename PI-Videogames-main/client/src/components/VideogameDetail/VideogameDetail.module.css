@@ -90,6 +90,19 @@ border-radius: 50px;
   /* background-color: rgba(0, 0, 0, 0.5); */
 }
 
+.loading img {
+  width: 100px;
+  height: 100px;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 
 
 

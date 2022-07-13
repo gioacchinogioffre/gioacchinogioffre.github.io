@@ -4,7 +4,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background-color: antiquewhite; */
 }
 
 .landingPage button {
@@ -37,12 +36,10 @@
 .navLp {
     display: flex;
     flex-direction:row;
-    /* align-content: center; */
     align-items: center;
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0.752);
     color:rgba(252, 252, 252, 0.768);
-    /* margin-top: 0; */
     margin-bottom: 1%;
     padding-top: 10px;
     height: 60px;
@@ -69,21 +66,12 @@
     color:#f9a448;
     cursor:pointer;
     text-decoration: underline overline;
-    /* text-decoration: overline; */
 }
 
 .radar {
     width: 130px;
     height: 100px;
-    /* margin-left: 10%; */
     margin-top: 20px
-}
-
-.titleDiv {
-    display: flex;
-    /* margin-right: 20px; */
-    /* margin-left: 20px; */
-    /* flex-direction: row; */
 }
 
 .video {
@@ -98,11 +86,7 @@
   grid-template-columns: 33% 33% 33%;
   align-items: center;
   margin-bottom: 50px;
-  /* margin-top: 50px; */
   justify-items: center;
-  /* justify-content: space-between; */
-  /* margin-left: 100px; */
-  /* margin-right: 100px; */
 }
 
 

@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-// export const GET_SEARCH_VIDEOGAMES = 'GET__SEARCH_VIDEOGAMES';
 export const GET_VIDEOGAME_DETAIL = 'GET_VIDEOGAME_DETAIL';
 export const CREATE_VIDEOGAME = 'CREATE_VIDEOGAME';
 export const DELETE_VIDEOGAME = 'DELETE_VIDEOGAME';
@@ -26,30 +25,35 @@ export function cleanDetail(){
     return {type: CLEAN_DETAIL} 
     }
 
-export function setLoading(){
-    return {type: SET_LOADING} 
+export function setLoading(payload){
+    return {type: SET_LOADING, payload} 
         }
     
     export function getVideogameDetail(id){
         return function(dispatch) {
-            return fetch(`http://localhost:3001/videogames/${id}`)
-            .then(res => res.json())
-            .then(detail =>
-                dispatch({ type: GET_VIDEOGAME_DETAIL, payload: detail }))
-            }
+            try{
+                return fetch(`http://localhost:3001/videogames/${id}`)
+                .then(res => res.json())
+                .then(detail =>
+                    dispatch({ type: GET_VIDEOGAME_DETAIL, payload: detail }))
+                } catch (e) {
+                    dispatch({ type: GET_VIDEOGAME_DETAIL, payload: e })
+                }
+            } 
         }
+
+
         
         
-        export function createVideogame(game){
+    export function createVideogame(game){
             return function (dispatch) {
                 return axios.post(`http://localhost:3001/videogames`, game)
-                // .then(res => res.data.json())
                 .then(game =>
                     dispatch({ type: CREATE_VIDEOGAME, payload: {game:game.data.game, msg: game.data.message}}))
                 }
             }
             
-            export function deleteVideogame(id) {
+    export function deleteVideogame(id) {
                 return function (dispatch) {
                     return axios.delete(`http://localhost:3001/videogames/${id}`)
                     .then(msg =>
@@ -57,7 +61,7 @@ export function setLoading(){
                 }    
             }
             
-            export function getGenres() {
+    export function getGenres() {
                 return function (dispatch) {
         return fetch(`http://localhost:3001/genres`)
         .then (res => res.json())

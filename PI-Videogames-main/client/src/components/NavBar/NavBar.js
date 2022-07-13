@@ -29,16 +29,17 @@ export default function NavBar({filterByGenre, filterByOrigin, searchByName, fil
                      <Link className={s.link} to='/createVideoGame'><img className ={s.homeIcon} src={add} alt='create' onMouseOver={(e) => handleOnHover(e)} onMouseOut={(e) => handleOnOut(e)}/> </Link>
                       <div>
                       {hover.home ? <h3 className={s.textRenders}>Home</h3> : false}
-                      {hover.create ? <h3 className={s.textRenders}>Create Game</h3> : false}
+                      {hover.create ? <h3 className={s.textRenders}>Upload Game</h3> : false}
                       </div>
                    </div>
 
                      <SearchBar filterByGenre={filterByGenre} filterByOrigin={filterByOrigin} searchByName={searchByName} filterByPlatforms={filterByPlatforms} handleOnClear={handleOnClear}/>
-                    <div className={s.userBar}>
-                        <Link className={s.link} to='/logIn' ><a> LOG IN </a></Link>
-                        <a> SIGN UP </a>
-                        <Link className={s.link} to ='/faq'><a> FAQ </a></Link>
-                     </div>
+                     
+                     <div className={s.userBar}>
+                    <Link to='/login'><button className={s.signUp} > LOG IN </button> </Link>
+                    <button className={s.signUp}>SIGN UP</button>
+                    <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
+                </div>
                     
                  </div>
             </nav>

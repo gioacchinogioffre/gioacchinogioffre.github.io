@@ -78,3 +78,18 @@
 
 }
 
+
+.signUp {
+    transition: 0.3s;
+    color:white;
+    background-color: transparent;
+    border:none;
+    font-size: 18px;
+}
+
+.signUp:hover {
+    transition: 0.3s;
+    color:#f9a448;
+    cursor:pointer;
+    text-decoration: underline overline;
+}

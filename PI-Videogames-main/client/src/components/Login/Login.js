@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
-// import s from './VideogameDetail.module.css'
-// import swal from 'sweetalert';
-
+import s from './Login.module.css';
 
 export class Login extends Component {
 
     render(){
     return (  
-        <div class="login-box">
-            <NavBar></NavBar>
-             <h2>Login</h2>
+        <div>
+        <NavBar></NavBar>
+        <div className={s.login}>
             <form>
-                <div class="user-box">
-                    <input type="text" name="" required=""/>
+                <div className={s.input}>
                     <label>Username</label>
+                    <input type="text" name="" required=""/>
                 </div>
-                <div class="user-box">
-                    <input type="password" name="" required=""/>
+                <div className={s.input}>
                     <label>Password</label>
+                    <input type="password" name="" required=""/>
                 </div>
-                <a href="#">
-                     <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                Submit
-                </a>
+                <button className={s.button}>LOG IN</button>
             </form>
+        </div>
         </div>
     )
 }

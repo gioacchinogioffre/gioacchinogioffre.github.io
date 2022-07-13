@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import profile from '../Icons/profile.jpg';
 import s from './FAQ.module.css';
@@ -17,8 +16,8 @@ export default function About() {
                     <div className={s.contact}>
                         <h2>Contact</h2>
                         <div>
-                        <a href='https://www.linkedin.com/in/joaquingioffre/' target="_blank"><img className={s.linkedin} src={linkedin} alt='linkedin'></img></a>
-                        <a href='https://github.com/gioacchinogioffre' target="_blank"><img className={s.github} src={github} alt='github'></img></a>
+                        <a href='https://www.linkedin.com/in/joaquingioffre/' target="_blank" rel='noreferrer'><img className={s.linkedin} src={linkedin} alt='linkedin'></img></a>
+                        <a href='https://github.com/gioacchinogioffre' target="_blank" rel='noreferrer'><img className={s.github} src={github} alt='github'></img></a>
                         </div>
                     </div>
                 <p>Hi everybody! My name is Joaquín Gioffre. Welcome to my first project 🚀 <br></br><br></br>In this opportunity, I'm bringing to you my idea of what I think a leading videogame platform should be. I hope you enjoy testing it as much as I enjoyed developing it 😁 <br></br><br></br>I would really appreciate any suggestions and feedback to keep improving the app 🙏🏼 <br></br><br></br>Enjoy your gaming!</p> 
@@ -34,7 +33,6 @@ export default function About() {
                 <h2>How can you contribute to Ki Games?</h2>
                 <p>Simple. Share your feedback! </p> 
                 </div>
-
             </div>
         </div>
     )

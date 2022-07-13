@@ -9,8 +9,6 @@ import nintendo from '../Icons/nintendo3.png'
 import battle from '../Icons/battle.png'
 import sega from '../Icons/sega.png'
 import photo from '../Icons/landingphoto_2.png'
-// import photo from '../Icons/landing.jpeg'
-
 
 
 export class LandingPage extends Component {
@@ -24,11 +22,10 @@ export class LandingPage extends Component {
          <div>
             <nav className={s.navLp}>
                 <div className={s.titleDiv}>
-                    {/* <h1 className={s.Title}> Ki </h1> */}
                     <Link><img className={s.radar} src={radar} alt='radar'></img></Link>
                 </div>
                 <div>
-                    <a className={s.signUp} > LOG IN </a>
+                    <Link to='/login'><button className={s.signUp} > LOG IN </button> </Link>
                     <button className={s.signUp}>SIGN UP</button>
                     <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
                 </div>
@@ -45,13 +42,12 @@ export class LandingPage extends Component {
                 <div className={s.info}>
                     <div className={s.first}>
                         <h2>More than 900k games!</h2>
-                        <p>Supporting all genres<br></br> 30+ platforms and counting</p>
+                        <p>Supporting all genres<br></br> 20+ platforms and counting</p>
                     </div>
 
                     <div className={s.first}>
                         <h2>IT'S FREE!</h2>
                         <p>Sign up to keep updated about the gaming world <br></br>and be a member of our universe </p>
-                        {/* <p>Sign up to keep updated about the gaming world and be a member of our universe </p> */}
                     </div>
 
                     <div className={s.first}>
@@ -68,10 +64,10 @@ export class LandingPage extends Component {
                      <div className={s.sponsor} >
                             <h2>Sponsored by</h2>
                             <div className={s.icons}>
-                                <a href='https://www.sony.net' target="_blank"><img className={s.sponsors} src={sony} alt='sony'/></a>
-                                <a href='https://www.nintendo.com' target='_blank'><img className={s.sponsors} src={nintendo} alt='nintendo'/></a>
-                                <a href='https://us.shop.battle.net/' target='_blank'><img className={s.sponsors} src={battle} alt='battle'/></a>
-                                <a href='https://www.sega.es' target='_blank'><img className={s.sponsors} src={sega} alt='sega'/></a>
+                                <a href='https://www.sony.net' target="_blank" rel='noreferrer'><img className={s.sponsors} src={sony} alt='sony'/></a>
+                                <a href='https://www.nintendo.com' target='_blank' rel='noreferrer'><img className={s.sponsors} src={nintendo} alt='nintendo'/></a>
+                                <a href='https://us.shop.battle.net/' target='_blank' rel='noreferrer'><img className={s.sponsors} src={battle} alt='battle'/></a>
+                                <a href='https://www.sega.es' target='_blank' rel='noreferrer'><img className={s.sponsors} src={sega} alt='sega'/></a>
                             </div>
                      </div>
                     
@@ -89,4 +85,4 @@ function mapDispatchToProps(dispatch) {
   }
   
   
-  export default connect(null, mapDispatchToProps)(LandingPage); // Conectamos a nuestro componente en primer lugar con el estado global (store) pasándolo como prop mediante mapStateToProps, y en segundo lugar con las actions mediante mapDispatchToProps
+  export default connect(null, mapDispatchToProps)(LandingPage);

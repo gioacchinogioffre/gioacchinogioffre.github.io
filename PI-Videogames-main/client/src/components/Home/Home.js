@@ -14,158 +14,68 @@ import android from '../Icons/android.png'
 import linux from '../Icons/linux.png'
 import pc from '../Icons/pc.png'
 import mac from '../Icons/mac.png'
-import loadingGif from '../Icons/loading3.gif'
+import loadingGif from '../Icons/loadingII.gif'
 import {NotFound} from '../Modals/ModalNotFound';
+import Filters from '../Filters/Filters';
 
 
 
 const Home = () => {
     const dispatch = useDispatch();
     
-
-    // local states filters/orders/search
+    // Filters - Local States
+    const[selected, setSelected] = useState({genres: 'All Genres', platforms: 'All Platforms', games: 'All Games'}); // inicializamos estado local selected para que cuando usemos el botón clear filters seteemos estos valores por defecto en cada lista de filtros.
     const [searchByName, setSearchByName] = useState(null);
-    // const [filterByGenre, setFilterByGenre] = useState('all');
-    const [filterByGenre, setFilterByGenre] = useState([]);
+    const [filterByGenre, setFilterByGenre] = useState([]); // Initial state en arreglo vacío para ir pusheando los valores que seleccionamos en la lista desplegada y que podamos filtrar por esos valores al mismo tiempo (hacemos lo mismo con arreglo platforms)
     const [filterByOrigin, setFilterByOrigin] = useState(null)
     const [filterByPlatforms, setFilterByPlatforms] = useState([]);
-    // const [filterByPlatforms, setFilterByPlatforms] = useState('All Platforms');
-    const [renderFilters, setRenderFilters] = useState({origin: '', genres:[], platforms:[]});
+    const [renderFilters, setRenderFilters] = useState({origin: '', genres:[], platforms:[]}); // Estado para renderizar los filtros que vamos aplicando para que el usuario pueda verlos y eliminarlos si quiere.
 
 
-    const allGames = useSelector(state => state.filteredVideogames);
-    const allGenres = useSelector(state => state.genres);
-    const loading = useSelector(state => state.loading);
-
-    // const [loading, setLoading] = useState(true)
-
-    const [showModal, setShowModal] = useState(false)
-    // const setModal = () => {
-    //     if (!showModal) return h.notShow;
-    //     else return h.showModal
-    // }
-
+    const allGames = useSelector(state => state.filteredVideogames) // Estado global que trae los juegos filtrados (en principio es una copia de TODOS los videojuegos)
+    const loading = useSelector(state => state.loading); // Estado global de loading (valor inicial true)
     
-    //Paginate
+    // Paginate - Local States
     const [currentPage, setCurrentPage] = useState(1);
-    const [gamesPerPage] = useState(15);
+    const [gamesPerPage] = useState(15); // seteamos la cantidad de juegos que mostraremos por página
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-    const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame)
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame) // Instanciamos constante donde guardaremos los juegos que mostraremos por página según los indices correspondientes.
+    const paginate = (pageNumber) => setCurrentPage(pageNumber); // seteamos el estado currentPage con el número de página que le pasemos por parámetro. Invocaremos esta función al hacer click en el botón de la página.
     const prevPage= () => setCurrentPage(currentPage - 1);
     const nextPage= () => setCurrentPage(currentPage + 1);
+    const [index, setIndex] = useState({startIndex: 0, endIndex: 3})
 
 
-   useEffect(() => {
+   useEffect(() => { // despachamos las actions para obtener los juegos y los géneros cada vez que se monte el componente.
        dispatch(getGenres())
-       if(!allGames.length) dispatch(getAllVideogames())
-       //    setLoading(true)
+       if(!allGames.length) dispatch(getAllVideogames()) // loading pasa a false.
+       else dispatch(setLoading(false))
     }, [])
     
-    useEffect(() => {
+    useEffect(() => { 
         setCurrentPage(1)
     }, [allGames])
 
-    useEffect(() => {return () => dispatch(setLoading())}, [])
-    
-
-    // const handleOnSelectGenre = (e) => {
-    //     if(!renderFilters.genres.includes(e.target.value)) setRenderFilters({...renderFilters, genres:[...renderFilters.genres, e.target.value]})
-    //     setCurrentPage(1)
-    //     dispatch(getFilters([...filterByGenre, e.target.value], filterByOrigin, searchByName, filterByPlatforms))
-    //     e.target.value !== 'All Genres' ? (setFilterByGenre([...filterByGenre, e.target.value])): setFilterByGenre([])
-    // }
-
-    const handleOnSelectGenre = (e) => {
-        if(!renderFilters.genres.includes(e.target.value)) setRenderFilters({...renderFilters, genres:[...renderFilters.genres, e.target.value]})
-        setCurrentPage(1)
-        if (e.target.value === 'All Genres') {
-            dispatch(getFilters([], filterByOrigin, searchByName, filterByPlatforms))
-            setFilterByGenre([])
-            setRenderFilters({...renderFilters, genres:[]})
-        } else {
-            dispatch(getFilters([...filterByGenre, e.target.value], filterByOrigin, searchByName, filterByPlatforms))
-            setFilterByGenre([...filterByGenre, e.target.value])   
-        }
-    }
-
-    // const handleOnSelectPlatforms = (e) => {
-    //     if(!renderFilters.platforms.includes(e.target.value)) setRenderFilters({...renderFilters, platforms:[...renderFilters.platforms, e.target.value]})
-    //     setFilterByPlatforms(e.target.value)
-    //     setCurrentPage(1)
-    //     let filterPlatforms = e.target.value;
-    //   dispatch(getFilters(filterByGenre, filterByOrigin, searchByName, filterPlatforms))
-    // }
-    const handleOnSelectPlatforms = (e) => {
-        if(!renderFilters.platforms.includes(e.target.value)) setRenderFilters({...renderFilters, platforms:[...renderFilters.platforms, e.target.value]})
-        setCurrentPage(1)
-        if(e.target.value === 'All Platforms') {
-            dispatch(getFilters(filterByGenre, filterByOrigin, searchByName, []))
-            setFilterByPlatforms([])
-            setRenderFilters({...renderFilters, platforms:[]})
-        } else {
-            dispatch(getFilters(filterByGenre, filterByOrigin, searchByName, [...filterByPlatforms, e.target.value]))
-            setFilterByPlatforms([...filterByPlatforms, e.target.value])   
-        }
-    }
-
-        
-    const handleOnSelectGames = (e) => {
-        setRenderFilters({...renderFilters, origin:e.target.value})
-        setFilterByOrigin(e.target.value)
-        setCurrentPage(1)
-        let filterGames = e.target.value;
-      dispatch(getFilters(filterByGenre, filterGames, searchByName, filterByPlatforms))
-    }
+    useEffect(() => {return () => dispatch(setLoading())}, []) // despachamos la action para setear el loading a true cada vez que se desmonte el componente.
 
 
-
-    const handleOnSelectOrder = (e) => {
+    const handleOnSelectOrder = (e) => { 
         setCurrentPage(1)
         let orderGames = e.target.value;
         dispatch(getOrders(orderGames))
       }
 
-      const handleOnClear = () => {
+      const handleOnClear = () => { // función para limpiar los filtros. Seteamos nuestros estados locales a sus valores por defecto y despachamos la action de filtrado por dichos valores (no le paso los estados directamente porque la action puede despacharse y tal vez los mismos no se actualizaron aún)
+        setSelected({genres: 'All Genres', platforms: 'All Platforms', games: 'All Games'})
         setFilterByGenre([])
-        // setFilterByGenre('All Genres')
         setFilterByOrigin(null)
         setFilterByPlatforms([])
-        // setFilterByPlatforms('All Platforms')
         setSearchByName(null)
+        setIndex({startIndex: 0, endIndex: 3})
         setRenderFilters({origin: '', genres:[], platforms:[]})
         dispatch(getFilters([], null, null, []))
-        // dispatch(getFilters('All Genres', 'All Games', null, 'All Platforms'))
       }
-
-      const handleOnDelete = (e, prop) => {
-        if(prop) {
-            setRenderFilters({...renderFilters, [prop]: renderFilters[prop].filter(item => item !== e.target.value)}) 
-            if(prop === 'genres') {
-                setFilterByGenre(filterByGenre.filter(item => item !== e.target.value))
-                dispatch(getFilters(filterByGenre.filter(item => item !== e.target.value), filterByOrigin, searchByName, filterByPlatforms))
-            } else {
-                setFilterByPlatforms(filterByPlatforms.filter(item => item !== e.target.value))
-                dispatch(getFilters(filterByGenre, filterByOrigin, searchByName, filterByPlatforms.filter(item => item !== e.target.value)))
-            }
-        }
-        else {
-            setRenderFilters({...renderFilters, origin: ''})
-            setFilterByOrigin('')
-            dispatch(getFilters(filterByGenre, 'All Games', searchByName, filterByPlatforms))
-        }
-        setCurrentPage(1)
-      }
-
-      const handleOnDeleteGame = (id) => {
-        setShowModal(true)
-    }
-
-
-    //  allGenres.length && console.log(allGenres[0].image_background)
-  
-     let platforms = ['Android', 'iOS', 'Linux', 'macOS', 'Nintendo Switch', 'Nintendo 3DS', 'PC', 'PlayStation', 'PlayStation 2', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'PS Vita', 'Wii U', 'Xbox 360', 'Xbox One', 'Xbox Series S/X', ]
 
     return (
         
@@ -176,67 +86,28 @@ const Home = () => {
          <div className={h.container}>
 
               <div className={h.firstC}>
-                 <div >
-                    {(renderFilters.origin.length>0 || renderFilters.genres.length>0 || renderFilters.platforms.length>0) && <button  onClick={() => handleOnClear()} className={h.clearFilters}>Remove filters</button>}
-                 </div>
-
-                <div className={h.filters}>
-
-                       <div className={h.renderFilters}>
-                        {renderFilters.genres.length>0 && renderFilters.genres.map(r => {
-                            return <button value={r} onClick={(e) => handleOnDelete(e, 'genres')}> {r} x</button>})}
-                        {renderFilters.platforms.length>0 && renderFilters.platforms.map(r => {
-                            return <button value={r} onClick={(e) => handleOnDelete(e, 'platforms')}> {r} x</button>})}
-                        {renderFilters.origin.length>0 && <button value={renderFilters.origin} onClick={(e) => handleOnDelete(e)}> {renderFilters.origin} x</button>}
-                       </div>
-                        <select className={h.filters} name='all_db_games' id='games' size='4' onChange={(e) => handleOnSelectGames(e)}>
-                            <optgroup  label='Show'>
-                                <option value='All Games'>All Games</option>
-                                <option value='Api'>Api Games</option>
-                                <option value='Created'>Created Games</option>
-                            </optgroup>
-                        </select>
-                        {/* <br></br><br></br><br></br> */}
-                        <div className={h.genres}>
-                        {/* {allGenres.length && allGenres.map(g => 
-                        <img className={h.genreIcon} src={g.image_background} alt='genreIcon'></img>)} */}
-                        <select focus className={h.filters} name='genres' id='genres' size='21' onChange={(e) => handleOnSelectGenre(e)}>
-                            <optgroup label='Genres'>
-                                <option value='All Genres'>All Genres</option>
-                               {allGenres.map(g =>
-                               <option value={g.name} key={g.id}>{g.name}</option> )}
-                            </optgroup>
-                         </select>
-                        {/* <br></br><br></br> */}
-                        <select  className={h.filters} name='platforms' id='platforms' size='21' onChange={(e) => handleOnSelectPlatforms(e)}>
-                            <optgroup label='Platforms'>
-                                <option value='All Platforms'>All Platforms</option>
-                               {platforms.map(p =>
-                               <option value={p} key={p}>{p}</option> )}
-                            </optgroup>
-                         </select>
-                        </div>
-                </div>
+                 <Filters index={index} setIndex={setIndex} setCurrentPage={setCurrentPage} searchByName={searchByName} setSearchByName={setSearchByName} filterByGenre={filterByGenre} setFilterByGenre={setFilterByGenre} filterByOrigin={filterByOrigin} setFilterByOrigin={setFilterByOrigin} filterByPlatforms={filterByPlatforms} setFilterByPlatforms={setFilterByPlatforms} renderFilters={renderFilters} setRenderFilters={setRenderFilters} handleOnClear={handleOnClear} selected={selected} setSelected={setSelected}></Filters>
              </div>
                     <div>
                     <div className={h.orders}>
                         <h4>Sort by: </h4>
-                     <select name='alphabetic' onChange={(e) => handleOnSelectOrder(e)}>
-                                <option selected disabled value='alphabetic'>Name</option>
+                     <select defaultValue='alphabetic' name='alphabetic' onChange={(e) => handleOnSelectOrder(e)}>
+                                <option disabled value='alphabetic'>Name</option>
                                 <option value='a-z'>A-Z</option>
                                 <option value='z-a'>Z-A</option>
                          </select>
-                        <select name='rating' onChange={(e) => handleOnSelectOrder(e)}>
-                            <option selected disabled value='rating'>Rating</option>
-                                <option  value='ascending'>Ascending</option>
-                                <option value='descending'>Descending</option>
+                        <select defaultValue='rating' name='rating' onChange={(e) => handleOnSelectOrder(e)}>
+                            <option disabled value='rating'>Rating</option>
+                                <option value='descending'>Highest</option>
+                                <option  value='ascending'>Lowest</option>
                         </select>
                     </div>
+
                     {allGames.length >= 100 && <h1 className={h.trending}>Trending now</h1>}
-                    {/* <div className={setModal()}><ModalDelete/></div> */}
+                    
                     <div className={h.vgContainer}>
                          {!loading ? (currentGames.length ? currentGames.map(vg => (
-                            <div className={h.cardC}>
+                            <div key={vg.id} className={h.cardC}>
                             <Link className={h.link} to={`/videogames/${vg.id}`}>
                                     <div className={h.cardRating}>
                                         <p>{vg.rating}</p>
@@ -270,12 +141,10 @@ const Home = () => {
             </div>
                     <div className={h.paginate}>
                     <Paginate  gamesPerPage={gamesPerPage}  allGames={allGames.length}  currentPage={currentPage}
-                    paginate={paginate} prevPage={prevPage}  nextPage={nextPage} />
+                    paginate={paginate} prevPage={prevPage}  nextPage={nextPage} index={index} setIndex={setIndex}/>
                     </div>
-
         </header>
     )
-    
 }
 
 export default Home;

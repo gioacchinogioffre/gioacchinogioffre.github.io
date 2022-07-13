@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { getVideogameDetail, cleanDetail, setLoading} from '../../actions/index';
 import NavBar from '../NavBar/NavBar';
 import s from './VideogameDetail.module.css'
 import rating from '../Icons/star-2.png'
-import loading from '../Icons/loading3.gif'
+import loading from '../Icons/loadingII.gif'
 import ModalDelete from '../Modals/ModalDelete';
-
-
+import NotFound from '../NotFound/NotFound';
 
 export class VideogameDetail extends Component {
 
@@ -18,13 +16,13 @@ export class VideogameDetail extends Component {
         this.props.getVideogameDetail(videogameDetail)
     }
 
-    handleOnClick = () => {
-        this.props.history.push('/home')
-    }
-
     componentWillUnmount() {
         this.props.cleanDetail()
         this.props.setLoading()
+    }
+    
+    handleOnClick = () => {
+        this.props.history.push('/home')
     }
 
 
@@ -33,7 +31,7 @@ export class VideogameDetail extends Component {
         <div>
         <NavBar/>
      {!this.props.loading ?
-      (this.props.vgDetail.length ? this.props.vgDetail.map(vg =>
+      (this.props.vgDetail[0] && (this.props.vgDetail[0].name ? this.props.vgDetail.map(vg =>
         <div key={vg.name}>
 
             <div key={vg.id} className={s.container}>
@@ -58,16 +56,11 @@ export class VideogameDetail extends Component {
                 </div>
            </div>
 
-        ) : <div>No videogame found</div>)
+        ) : <NotFound/>))
         :  <div className={s.loading}>
         <img src={loading} alt='loading'></img>
         <h1>loading...</h1>
       </div>
-    //   <main>
-    //     <h1 className={s.errorTitle}>4<span><i class="fas fa-ghost"></i></span>4</h1>
-    //     <h2 className={s.errorSubTitle}>Error: 404 game not found</h2>
-    //     <button className={s.button} onClick={this.handleOnClick}>Return Home</button>
-    //   </main>
     }
     </div>
     )
@@ -86,6 +79,7 @@ function mapDispatchToProps(dispatch) {
     return {
         getVideogameDetail: videogameId => dispatch(getVideogameDetail(videogameId)),
         cleanDetail: () => dispatch(cleanDetail()),
+        setLoading: () => dispatch(setLoading()),
     }
 }
 

@@ -6,8 +6,6 @@ const initialState = {
     videogames: [],
     videogameDetail:[],
     genres: [],
-    // orders: [],
-    msg: '',
     loading: true
 }
 
@@ -24,7 +22,9 @@ export default function rootReducer(state = initialState, action) {
 
         case CLEAN_DETAIL: return {...state, videogameDetail: []}
 
-        case SET_LOADING: return {...state, loading: true}
+        case SET_LOADING: 
+        if (action.payload === false) return {...state, loading: false}
+        else return {...state, loading: true}
 
         case GET_GENRES: return {...state, genres: action.payload}
 
@@ -34,14 +34,6 @@ export default function rootReducer(state = initialState, action) {
         let byGenre = action.payload.filterByGenre
         let byName = action.payload.searchByName
         let byPlatforms = action.payload.filterByPlatforms
-
-        console.log(byGenre)
-      
-        // if(byGenre !== 'all') { 
-        //     filters = filters.filter(videogame => {
-        //         let genre = videogame.genres.find(vg => vg.name.includes(byGenre))
-        //         return genre})
-        //     }
 
           if(byGenre.length > 0) { 
             if (byGenre.includes('All')) {
@@ -54,34 +46,26 @@ export default function rootReducer(state = initialState, action) {
                 }
             }
             }
-            // console.log(byGenre)
-
-        //  if(byPlatforms !== 'All Platforms') { 
-        //     filters = filters.filter(videogame => {
-        //         let platform = videogame.platforms.find(p => p == byPlatforms)
-        //         return platform})
-        //         }
         
                 if(byPlatforms.length > 0) { 
                     if(byPlatforms.includes('All Platforms')) {
                     }
                     else {for (let i = 0; i < byPlatforms.length; i++) {
                             filters = filters.filter(videogame => {
-                                let platform = videogame.platforms.find(p => p == byPlatforms[i])
-                                return platform})
-                        }
+                                let platform = videogame.platforms.find(p => p === byPlatforms[i])
+                                return platform})}
                         }
                         }
 
 
                 
-        if(byOrigin === 'Created') filters = filters.filter(videogame => videogame.createdOnDb === true)
-        if(byOrigin === 'Api')  filters = filters.filter(videogame => videogame.createdOnDb === undefined)
+        if(byOrigin === 'Ki') filters = filters.filter(videogame => videogame.createdOnDb === true)
+        if(byOrigin === 'Popular')  filters = filters.filter(videogame => videogame.createdOnDb === undefined)
         if(byOrigin === 'All Games' && byGenre === 'All Genres') filters =[...state.videogames]
             
         if(byName) filters = filters.filter(vg => vg.name.toLowerCase().includes(byName.toLowerCase()))
             
-        return {...state, filteredVideogames: filters}
+        return {...state, filteredVideogames: filters, loading: false}
 
         case GET_ORDERS:
         let vgOrder = [...state.filteredVideogames]

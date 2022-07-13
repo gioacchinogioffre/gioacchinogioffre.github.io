@@ -10,19 +10,27 @@ import Modal from '../Modals/ModalForm';
 export function validate(game) {
     
     let errors = {}; 
+
+    if(game.name.length === 0) {errors.name = 'name is required'}
     if(game.name.length>0) {
         if (!/^[a-zA-Z0-9 ]+$/.test(game.name)) {errors.name = 'name can only contain letters and numbers'} 
         if (game.name[game.name.length -1] === " ") {errors.name = 'name cannot end with white spaces'} 
         if (game.name.length > 40) {errors.name = 'name must be shorter'} 
     }
+
+    if(game.description.length === 0) {errors.description = 'description is required'}
     
     if(game.description.length>0) {
         if (!/^[a-zA-Z0-9 .,?'":]+$/.test(game.description)) {errors.description = 'description can only contain letters and numbers'} 
         if (game.description.length>500) {errors.description = 'description must be shorter'}
     }
+
+    if(game.released.slice(0, 4)>2024) {errors.released = 'released date cannot be after 2024'}
+    if(game.released.slice(0, 4)<1970) {errors.released = 'released date cannot be before 1970'}
+
     
     if(game.rating.length>0) {
-        if(game.rating > 5 || game.rating < 1 || game.rating.length>4 || game.rating[0] == 0) {errors.rating = 'rating is invalid'}
+        if(game.rating > 5 || game.rating < 1 || game.rating.length>4 || game.rating[0] === 0) {errors.rating = 'rating is invalid'}
     }
     
     if (!game.platforms.length) {errors.platforms = 'platforms are required'}
@@ -41,47 +49,43 @@ const Form = () => {
     
     const [game, setGame] = React.useState ({ 
         name: '',
-            description: '',
-            rating: "",
-            released: formatDate(),
-            background_image: '',
-            platforms: [],
-            genres: [],
-        });
-        
-        const [renders, setRenders] = React.useState([])
+        description: '',
+        rating: "",
+        released: formatDate(),
+        background_image: '',
+        platforms: [],
+        genres: [],
+    });
+    const [renders, setRenders] = React.useState([])
+    const [errors, setErrors] = React.useState({}) 
+    const [showModal, setShowModal] = useState(false)
+
+    let platforms = ['Android', 'iOS', 'Linux', 'macOS', 'Nintendo Switch', 'Nintendo 3DS', 'PC', 'PlayStation', 'PlayStation 2', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'PS Vita', 'Wii U', 'Xbox', 'Xbox 360', 'Xbox One', 'Xbox Series S/X', ]
+    
         const history = useHistory();
+        const allGenres = useSelector(state => state.genres);
+        const dispatch = useDispatch()
         
         useEffect(() => {
             dispatch(getGenres())
         }, [])
         
         
-        
-        const [errors, setErrors] = React.useState({}) 
- const allGenres = useSelector(state => state.genres);
- const dispatch = useDispatch()
- 
- 
- const handleOnChange = (e) => {
+    const handleOnChange = (e) => {
      setGame({...game, [e.target.name]: e.target.value})
      setErrors(validate({...game, [e.target.name]: e.target.value})) 
     }
-    
-    const [showModal, setShowModal] = useState(false)
-    
+
     const setModal = () => {
         if (!showModal) return s.notShow;
         else return s.showModal
     }
-    
     
     const handleOnSubmit = (e) => {
         e.preventDefault()
         if (!Object.keys(errors).length) {
             if(game.name.length) {
                 if(game.rating.length===0) delete game.rating
-                // if(game.released.length===0) delete game.released
                 if(game.background_image.length === 0) {game.background_image = photo}
                 game.genres = game.genres.map(g => parseInt(g))
                 console.log(game)
@@ -123,9 +127,6 @@ else{
 }
 
 
-
-let platforms = ['PC', 'PlayStation', 'PlayStation 2', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series S/X', 'Nintendo Switch', 'macOS', 'Android', 'iOS', 'Linux', 'PS Vita', 'Wii U', 'Nintedo 3DS' ]
-
     return (
         <div className={showModal && s.opacityBG}>
 
@@ -137,14 +138,14 @@ let platforms = ['PC', 'PlayStation', 'PlayStation 2', 'PlayStation 3', 'PlaySta
          <div className={s.subContainer}>
             <div className={s.subTitles}>
             <label htmlFor='name' >Name*:</label> 
-                <input className={s.inputs} type='text' name='name' key='name' value={game.name} onChange={handleOnChange} placeholder='Example: World Of Warcraft' required ></input> 
+                <input className={s.inputs} type='text' name='name' key='name' value={game.name} onChange={handleOnChange} placeholder='Example: Warcraft 3'  ></input> 
                 {errors.name && <p className={s.danger}>{errors.name}</p>}
             </div>
 
             <div className={s.subTitles} >
             <label htmlFor='released'>Released Date:</label> 
-                <input className={s.iDate} type='date' name='released' key='released' value={game.released} onChange={handleOnChange} placeholder='07/07/2022'></input> 
-               {errors.date && <p className={s.danger}>{errors.date}</p>} 
+                <input className={s.iDate} type='date' name='released' key='released' value={game.released} onChange={handleOnChange} ></input> 
+               {errors.released && <p className={s.danger}>{errors.released}</p>} 
             </div>
             
             <div className={s.subTitles}>
@@ -170,7 +171,7 @@ let platforms = ['PC', 'PlayStation', 'PlayStation 2', 'PlayStation 3', 'PlaySta
     
             <div>
             <label htmlFor='description' className={s.descT} >Description*:</label>{errors.description && <p className={s.danger}>{errors.description}</p>} 
-                <textarea required className={s.description} form="videogameForm" name='description' key='description' value={game.description} onChange={handleOnChange} placeholder='Describe your game...' ></textarea>
+                <textarea className={s.description} form="videogameForm" name='description' key='description' value={game.description} onChange={handleOnChange} placeholder='Describe your game...' ></textarea>
             </div>
 
             <div className={s.containeRenders} id='renders'>
@@ -187,8 +188,6 @@ let platforms = ['PC', 'PlayStation', 'PlayStation 2', 'PlayStation 3', 'PlaySta
                         </div>
                         )}
                 </div>
-
-            
             </div>
 
             <div className={s.imageContainer}>

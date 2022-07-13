@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { getFilters } from '../../actions/index';
 import { useDispatch } from 'react-redux';
 import s from './SearchBar.module.css';
@@ -16,21 +15,17 @@ export default function SearchBar({filterByGenre, filterByOrigin, searchByName, 
         setTitle(e.target.value)
     }
 
-
-
-
     const handleOnClickSearch = (e) => {
-        // setTitle('')
-        history.push('/home')
-        // dispatch(getFilters(filterByGenre, filterByOrigin, title, filterByPlatforms))
-        dispatch(getFilters((!filterByGenre ? [] : filterByGenre), (!filterByOrigin ? [] : filterByOrigin), title, (!filterByPlatforms ? [] : filterByPlatforms)))
-        setTitle('')
+        if(title.length>0) {
+            history.push('/home')
+            dispatch(getFilters((!filterByGenre ? [] : filterByGenre), (!filterByOrigin ? [] : filterByOrigin), title, (!filterByPlatforms ? [] : filterByPlatforms)))
+            setTitle('')
+        }
       }
 
       const handleSubmitEnter = (e) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" && title.length>0) {
             history.push('/home')
-            // dispatch(getFilters(filterByGenre, filterByOrigin, title, filterByPlatforms));
              dispatch(getFilters((!filterByGenre ? [] : filterByGenre), (!filterByOrigin ? [] : filterByOrigin), title, (!filterByPlatforms ? [] : filterByPlatforms)))
             setTitle("");
         }
