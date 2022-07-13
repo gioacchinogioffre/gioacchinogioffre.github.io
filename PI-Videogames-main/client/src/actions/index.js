@@ -1,4 +1,5 @@
-const axios = require('axios');
+import axios from 'axios';
+
 
 export const GET_VIDEOGAME_DETAIL = 'GET_VIDEOGAME_DETAIL';
 export const CREATE_VIDEOGAME = 'CREATE_VIDEOGAME';
@@ -14,10 +15,9 @@ export const SET_LOADING = 'SET_LOADING';
 
 export function getAllVideogames(){
     return function(dispatch) {
-        return fetch(`http://localhost:3001/videogames`)
-        .then(res => res.json())
+        return axios(`/videogames`)
         .then(games =>
-            dispatch({type: GET_ALL_VIDEOGAMES, payload: games}))
+            dispatch({type: GET_ALL_VIDEOGAMES, payload: games.data}))
     }
 }
 
@@ -32,10 +32,9 @@ export function setLoading(payload){
     export function getVideogameDetail(id){
         return function(dispatch) {
             try{
-                return fetch(`http://localhost:3001/videogames/${id}`)
-                .then(res => res.json())
+                return axios(`/videogames/${id}`)
                 .then(detail =>
-                    dispatch({ type: GET_VIDEOGAME_DETAIL, payload: detail }))
+                    dispatch({ type: GET_VIDEOGAME_DETAIL, payload: detail.data }))
                 } catch (e) {
                     dispatch({ type: GET_VIDEOGAME_DETAIL, payload: e })
                 }
@@ -47,7 +46,7 @@ export function setLoading(payload){
         
     export function createVideogame(game){
             return function (dispatch) {
-                return axios.post(`http://localhost:3001/videogames`, game)
+                return axios.post(`/videogames`, game)
                 .then(game =>
                     dispatch({ type: CREATE_VIDEOGAME, payload: {game:game.data.game, msg: game.data.message}}))
                 }
@@ -55,7 +54,7 @@ export function setLoading(payload){
             
     export function deleteVideogame(id) {
                 return function (dispatch) {
-                    return axios.delete(`http://localhost:3001/videogames/${id}`)
+                    return axios.delete(`/videogames/${id}`)
                     .then(msg =>
                         dispatch({ type: DELETE_VIDEOGAME, payload: msg }))
                 }    
@@ -63,9 +62,8 @@ export function setLoading(payload){
             
     export function getGenres() {
                 return function (dispatch) {
-        return fetch(`http://localhost:3001/genres`)
-        .then (res => res.json())
-        .then (genres => dispatch({type: GET_GENRES, payload: genres}))
+        return axios(`/genres`)
+        .then (genres => dispatch({type: GET_GENRES, payload: genres.data}))
     }
 } 
 
