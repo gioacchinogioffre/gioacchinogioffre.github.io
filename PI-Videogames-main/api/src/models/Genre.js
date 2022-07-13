@@ -18,3 +18,5 @@ module.exports = (sequelize) => {
 
   });
 };
+
+// Definimos modelo de la tabla genres que de guardará en nuestra base de datos creada previamente con psql, con las columnas id (primary key), name que no podrán ser null y que serán unicos. Luego relacionaremos con la tabla videogames.

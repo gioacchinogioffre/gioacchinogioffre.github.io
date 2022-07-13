@@ -26,3 +26,5 @@ conn.sync({ force: false }).then(() => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });
+
+// Importamos nuestro server instanciado en app y le damos inicio sinconronizando con nuestra base de datos y escuchando en el puerto 3001.

@@ -55,3 +55,5 @@ module.exports = (sequelize) => {
     
   });
 };
+
+// Definimos modelo de la tabla videogames que se guardará en nuestra base de datos creada previamente con psql, con las columnas id (primary key), name, descripition y platforms que no podrán ser null. Creamos la columna createdOnDb para luego diferenciar los videogames creados por los usuarios de los traídos de la API. Luego relacionaremos con la tabla genres.

@@ -6,7 +6,7 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, { // Instanciamos sequelize conectando con la base de datos creada previamente con psql.
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
@@ -35,10 +35,11 @@ const { Videogame, Genre } = sequelize.models;
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
+// Relacionamos nuestros dos modelos/tablas en una relación muchos a muchos.
 Videogame.belongsToMany(Genre, { through: 'Videogame_Genre' })
 Genre.belongsToMany(Videogame, { through: 'Videogame_Genre' })
 
-module.exports = {
+module.exports = { // Exportamos nuestros modelos y nuestra conexión de sequelize con la base de datos.
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
 };

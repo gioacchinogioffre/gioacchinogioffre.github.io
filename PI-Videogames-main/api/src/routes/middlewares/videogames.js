@@ -2,9 +2,9 @@ require('dotenv').config();
 var express = require('express');
 const router = express.Router();
 const { Videogame, Genre } = require('../../db.js');
-const axios = require('axios');
-const {Op} = require('sequelize');
 const { getAllVideogames, getVideogameById, getDbVideogames} = require('./utils.js');
+// const axios = require('axios');
+// const {Op} = require('sequelize');
 
 module.exports = router;
 
@@ -16,9 +16,9 @@ module.exports = router;
 // [ ] __GET /videogames__:
 // - Obtener un listado de los videojuegos
 // - Debe devolver solo los datos necesarios para la ruta principal
-router.get('/', async (req, res) => {
+router.get('/', async (req, res) => { // hacemos request get en la ruta /videogames
     let {name} = req.query;
-    let videogames = await getAllVideogames();
+    let videogames = await getAllVideogames(); // nos traemos todos los juegos invocando la función getAllVideogames que nos retornará un arreglo con juegos.
     try {
         if(name) {
             videogames = videogames.filter(vg => vg.name.toLowerCase().includes(name.toLowerCase()))
@@ -39,19 +39,20 @@ router.get('/', async (req, res) => {
 
 router.get('/:videogameId', async (req, res) => {
     let { videogameId } = req.params;
-    let videogamesDb = await getDbVideogames()
-    let videogameApi = await getVideogameById(videogameId)
-    videogamesDb = videogamesDb.filter(vg => vg.id == videogameId)
-    // videogames = videogames.filter(vg => vg.id == videogameId)
+
+    // Nos traemos los juegos de la base de datos y de la API por separado. Lo hacemos de esta manera ya que mejora el rendimiento y velocidad.
+    let videogamesDb = await getDbVideogames() // juegos DB
+    videogamesDb = videogamesDb.filter(vg => vg.id == videogameId) // juego DB filtrado por id
+    let videogameApi = await getVideogameById(videogameId) // juego API filtrado por id
 
     try {
-        console.log(videogameApi, videogamesDb)
-        if(videogamesDb.length) return res.json(videogamesDb[0])
+        // Si existe alguno de los juegos en DB o API, lo enviamos.
+        if(videogamesDb.length) return res.json(videogamesDb[0]) 
         if(videogameApi.length) return res.json(videogameApi[0])
-        else res.status(404).send('There is no video game with that id');
+        return res.status(404).send({msg: 'There is no video game with that id'});
         }
      catch (e) {
-        res.status(404).send('There is no video game with that id');
+        res.status(404).send({msg: 'There is no video game with that id'});
     }
 })
 
@@ -61,13 +62,13 @@ router.get('/:videogameId', async (req, res) => {
 // - Crea un videojuego en la base de datos, relacionado a sus géneros.
 
 
-router.post('/', async (req, res) => {
-    let { name, description , released, rating, platforms, background_image, genres } = req.body;
-    if (!name || !description || !platforms) return res.status(404).send('Name, description and platforms are required');
+router.post('/', async (req, res) => { // creamos request post en la ruta /videogames
+    let { name, description , released, rating, platforms, background_image, genres } = req.body; // mandamos la información del formulario por body
+    if (!name || !description || !platforms) return res.status(404).send('Name, description and platforms are required'); // si alguno de los campos obligatorios no está lleno, mandamos un error.
    
    try {
-       let newVideogame = await Videogame.create(req.body)
-       await newVideogame.setGenres(genres)
+       let newVideogame = await Videogame.create(req.body) // creamos el juego en la base de datos
+       await newVideogame.setGenres(genres) // relacionamos el juego con sus géneros
        res.status(201).send({game: newVideogame, msg:'Videogame created successfully'});
    } catch (e) {
     res.status(404).send(e.message);
@@ -75,14 +76,36 @@ router.post('/', async (req, res) => {
 
 })
 
-router.delete('/:videogameId', async (req, res) => {
+router.delete('/:videogameId', async (req, res) => { // creamos request delete en la ruta /videogames/:videogameId para eliminar solo aquellos juegos creados y guardados en la DB.
     let { videogameId } = req.params;
     try {
-        let videogame = await Videogame.findByPk(videogameId)
-        await videogame.destroy()
+        let videogame = await Videogame.findByPk(videogameId) // buscamos el juego por id en nuestra DB 
+        await videogame.destroy() // eliminamos el registro utilizando método destroy
         res.status(200).send({msg:'Videogame deleted successfully'});
     } catch (e) {
         res.status(404).send(e.message);
     }
 })
+
+router.put('/:videogameId', async (req, res) => { // creamos request delete en la ruta /videogames/:videogameId para eliminar solo aquellos juegos creados y guardados en la DB.
+    let { name, description , released, rating, platforms, background_image, genres } = req.body;
+    let { videogameId } = req.params;
+    try {
+        let videogame = await Videogame.findByPk(videogameId) // buscamos el juego por id en nuestra DB 
+        await videogame.update({
+            name: name,
+            description: description,
+            released: released,
+            rating: rating,
+            platforms: platforms,
+            background_image: background_image,
+            genres: genres
+        })
+        res.status(200).send({msg:'Videogame modified successfully'});
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+})
+
+
 

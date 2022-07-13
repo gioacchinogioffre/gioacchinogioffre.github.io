@@ -33,3 +33,5 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 });
 
 module.exports = server;
+
+// Inicializamos nuestro servidor invocando a express y le damos configuraciones iniciales. Luego lo exportamos para ser utilizado en nuestro archivo base index.js del back.
