@@ -43,11 +43,11 @@ export default function NavBar({filterByGenre, filterByOrigin, searchByName, fil
                       { isAuthenticated ? 
                         <div className={s.profile}>
                           <Link className={s.link} to='/profile'><img  className={s.profileIcon} src={user} alt='user'></img> </Link>
-                          <button className={s.signUp} onClick={()=>logout({returnTo:'http://localhost:3000/home'})}>LOG OUT</button> 
+                          <button className={s.signUp} onClick={()=>logout({returnTo:'https://ki-games.vercel.app/home'})}>LOG OUT</button> 
                         </div>
                       : 
                       <div>
-                        <button onClick={() => loginWithRedirect()} className={s.signUp} > LOG IN </button> 
+                        <button onClick={() => loginWithRedirect({returnTo:'https://ki-games.vercel.app/home'})} className={s.signUp} > LOG IN </button> 
                         <button className={s.signUp}>SIGN UP</button>
                       </div>}
                     <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
