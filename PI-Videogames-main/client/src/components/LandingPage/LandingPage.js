@@ -32,7 +32,7 @@ export default function LandingPage () {
                     <Link><img className={s.radar} src={radar} alt='radar'></img></Link>
                 </div>
                 <div>
-                    <button onClick={()=> loginWithRedirect()} className={s.signUp} > LOG IN </button> 
+                    <button onClick={()=> loginWithRedirect({returnTo:'https://ki-games.vercel.app/home'})} className={s.signUp} > LOG IN </button> 
                     <button className={s.signUp}>SIGN UP</button>
                     <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
                 </div>
