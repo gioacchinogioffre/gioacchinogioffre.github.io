@@ -47,7 +47,7 @@ export default function NavBar({filterByGenre, filterByOrigin, searchByName, fil
                         </div>
                       : 
                       <div>
-                        <button onClick={() => loginWithRedirect({returnTo:'https://ki-games.vercel.app/home'})} className={s.signUp} > LOG IN </button> 
+                        <button onClick={() => loginWithRedirect()} className={s.signUp} > LOG IN </button> 
                         <button className={s.signUp}>SIGN UP</button>
                       </div>}
                     <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
