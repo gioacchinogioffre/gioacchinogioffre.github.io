@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 .info p {
@@ -20,3 +20,31 @@
     /* align-items: center; */
     justify-content: center;
 }
+
+.info p img {
+    /* margin-top: 30px; */
+    width: 30px;
+    height: 30px;
+    transition: 0.3s;
+    background-color: white;
+    border-radius: 200px;
+    margin-left: 20px;
+}
+
+
+.info p button{
+    transition: 0.3s;
+    width: 200px;
+    height: 50px;
+    border: 2px groove red;
+    border-radius: 40px;
+    background-color: transparent;
+    color: white;
+    margin-left: 160px;
+  }
+
+  .info p button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    color:red;
+  }

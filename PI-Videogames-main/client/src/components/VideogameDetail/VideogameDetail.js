@@ -8,7 +8,10 @@ import loading from '../Icons/loadingII.gif'
 import ModalDelete from '../Modals/ModalDelete';
 import NotFound from '../NotFound/NotFound';
 
+
 export class VideogameDetail extends Component {
+
+
 
     componentDidMount() {
         const videogameDetail = this.props.match.params.videogameId

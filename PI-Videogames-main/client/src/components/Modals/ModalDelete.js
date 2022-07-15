@@ -6,6 +6,7 @@ import {  useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import ryuk from '../Icons/ryuk.png';
 import gameover from '../Icons/gameover2.png';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function ModalDelete({createdOnDb, id}) {
@@ -14,6 +15,7 @@ export default function ModalDelete({createdOnDb, id}) {
    const [success, setSuccess] = React.useState(false);
    const history = useHistory();
    const dispatch = useDispatch();
+   const { isAuthenticated } = useAuth0();
 
    
   const handleOnCancel = () => {
@@ -57,7 +59,7 @@ export default function ModalDelete({createdOnDb, id}) {
                     <div><img className={s.mario} src={mario} alt='mario'></img> </div>
             </div>  
         </div>
-        {createdOnDb && <div className={s.deleteGame}><button onClick={() => handleOnClick()}>DELETE GAME</button></div>}
+        {(createdOnDb && isAuthenticated) && <div className={s.deleteGame}><button onClick={() => handleOnClick()}>DELETE GAME</button></div>}
     </div>
   );
 }
