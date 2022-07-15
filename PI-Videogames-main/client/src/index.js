@@ -8,16 +8,23 @@ import { Provider } from "react-redux";
 import store from "./store/index";
 import axios from 'axios';
 import dotenv from "dotenv";
+import { Auth0Provider} from "@auth0/auth0-react";
+// const { REACT_APP_AUTH0_DOMAIN, REACT_APP_AUTH0_CLIENT_ID } = process.env;
+
 dotenv.config();
+
+console.log(process.env);
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 ReactDOM.render(
-  <Provider store={store}> {/*Componente que importamos de 'react-redux' y que abraza toda nuestra app. Recibe como prop el store. Toda nuestra app tendrá acceso al mismo. */}
+  <Auth0Provider domain="dev-aekjy-pn.us.auth0.com" clientId='UjHJFDsvnCH76oJI91l7vLGajVfeBoF7' redirectUri="http://localhost:3000/home">
+  <Provider store={store}> 
   <BrowserRouter>
     <App />
   </BrowserRouter>
-  </Provider>,
+  </Provider>
+  </Auth0Provider>,
   document.getElementById('root')
 );
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getGenres } from '../../actions';
 import { connect } from 'react-redux';
@@ -9,15 +9,22 @@ import nintendo from '../Icons/nintendo3.png'
 import battle from '../Icons/battle.png'
 import sega from '../Icons/sega.png'
 import photo from '../Icons/landingphoto_2.png'
+import { useAuth0 } from '@auth0/auth0-react';
+import { useDispatch } from 'react-redux';
 
 
-export class LandingPage extends Component {
 
-    componentDidMount() {
-        this.props.getGenres()
-    }
+export default function LandingPage () {
+    
+    const dispatch = useDispatch();
+    
 
-    render () {
+    useEffect(() => { 
+        dispatch(getGenres())
+    }, [])
+
+   const { loginWithRedirect } = useAuth0();
+
     return (
          <div>
             <nav className={s.navLp}>
@@ -25,7 +32,7 @@ export class LandingPage extends Component {
                     <Link><img className={s.radar} src={radar} alt='radar'></img></Link>
                 </div>
                 <div>
-                    <Link to='/login'><button className={s.signUp} > LOG IN </button> </Link>
+                    <button onClick={()=> loginWithRedirect()} className={s.signUp} > LOG IN </button> 
                     <button className={s.signUp}>SIGN UP</button>
                     <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
                 </div>
@@ -75,14 +82,3 @@ export class LandingPage extends Component {
             </div>
     )
 }
-}
-
-
-function mapDispatchToProps(dispatch) {
-    return {
-      getGenres: () => dispatch(getGenres())
-    }
-  }
-  
-  
-  export default connect(null, mapDispatchToProps)(LandingPage);

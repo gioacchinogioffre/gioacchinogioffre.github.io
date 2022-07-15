@@ -61,6 +61,17 @@
     margin-right: 15px;;
 }
 
+.profileIcon {
+    transition: 0.3s;
+    width: 40px;
+    border-radius: 200px;
+}
+
+.profileIcon:hover {
+    transition: 0.3s;
+    width: 45px;
+}
+
 .homeIcon:hover {
     transition: 0.3s;
     width: 45px;
@@ -93,3 +104,10 @@
     cursor:pointer;
     text-decoration: underline overline;
 }
+
+.profile {
+    display: flex;
+    margin-right: 10px;
+}
+
+
