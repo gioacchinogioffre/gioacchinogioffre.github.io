@@ -21,13 +21,13 @@ const Paginate = (props) => {
           <a key={num} onClick={() => paginate(num)}>{num}</a> // Por cada número de página, renderizamos un botón que invocará la función paginate seteando  el número de página actual.
         ))} */}
 
-         { pageNumbers.slice(index.startIndex, index.endIndex).map((num) => (
+         { pageNumbers.length>1 && pageNumbers.slice(index.startIndex, index.endIndex).map((num) => (
           <a key={num} onClick={() => paginate(num)}>{num}</a> // Por cada número de página, renderizamos un botón que invocará la función paginate seteando  el número de página actual.
         ))}
 
           {/* {currentPage !== pageNumbers.length} */}
         
-        {pageNumbers.length !== currentPage && ( // Si la cantidad de páginas es distinta a la actual, renderizamos el botón de next. Le pasamos la función nextPage para setear la current page a la siguiente.
+        {(pageNumbers.length !== currentPage && allGames>0) && ( // Si la cantidad de páginas es distinta a la actual, renderizamos el botón de next. Le pasamos la función nextPage para setear la current page a la siguiente.
         <button type='primary' onClick={() => {nextPage(); setIndex({startIndex: index.startIndex + 1, endIndex: index.endIndex + 1,  })  }}>{'Next >'} </button>)}
         </div>
     )

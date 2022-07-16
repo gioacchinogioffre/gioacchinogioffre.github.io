@@ -36,7 +36,7 @@ export function setLoading(payload){
                 .then(detail =>
                     dispatch({ type: GET_VIDEOGAME_DETAIL, payload: detail.data }))
                 } catch (e) {
-                    dispatch({ type: GET_VIDEOGAME_DETAIL, payload: e })
+                    dispatch({ type: GET_VIDEOGAME_DETAIL, payload: e.data })
                 }
             } 
         }

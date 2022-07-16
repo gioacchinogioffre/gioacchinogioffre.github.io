@@ -15,8 +15,9 @@ export class VideogameDetail extends Component {
 
     componentDidMount() {
         const videogameDetail = this.props.match.params.videogameId
-        console.log(videogameDetail)
         this.props.getVideogameDetail(videogameDetail)
+        this.props.setLoading(false)
+
     }
 
     componentWillUnmount() {

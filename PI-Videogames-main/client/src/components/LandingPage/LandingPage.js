@@ -29,11 +29,11 @@ export default function LandingPage () {
          <div>
             <nav className={s.navLp}>
                 <div className={s.titleDiv}>
-                    <Link><img className={s.radar} src={radar} alt='radar'></img></Link>
+                    <img className={s.radar} src={radar} alt='radar'></img>
                 </div>
                 <div>
                     <button onClick={()=> loginWithRedirect()} className={s.signUp} > LOG IN </button> 
-                    <button className={s.signUp}>SIGN UP</button>
+                    <button  onClick={()=> loginWithRedirect()} className={s.signUp}>SIGN UP</button>
                     <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
                 </div>
             </nav>

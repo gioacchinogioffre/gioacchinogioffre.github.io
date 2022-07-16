@@ -28,7 +28,7 @@ export default function NavBar({filterByGenre, filterByOrigin, searchByName, fil
             <nav>
                  <div className={s.items}>
                    <div className={s.titleCreate}>
-                    <Link className= {s.link} to ='/home'> <img className={s.radar} src={radar} alt='radar'></img> </Link>
+                     <img className={s.radar} src={radar} alt='radar'></img>
                       <Link className={s.link} to='/home'><img className ={s.homeIcon} src={homeIcon} alt='home' onMouseOver={(e) => handleOnHover(e)} onMouseOut={(e) => handleOnOut(e)}/> </Link>
                      { isAuthenticated && <Link className={s.link} to='/createVideoGame'><img className ={s.homeIcon} src={add} alt='create' onMouseOver={(e) => handleOnHover(e)} onMouseOut={(e) => handleOnOut(e)}/> </Link>}
                       <div>
@@ -48,7 +48,7 @@ export default function NavBar({filterByGenre, filterByOrigin, searchByName, fil
                       : 
                       <div>
                         <button onClick={() => loginWithRedirect()} className={s.signUp} > LOG IN </button> 
-                        <button className={s.signUp}>SIGN UP</button>
+                        <button onClick={() => loginWithRedirect()} className={s.signUp}>SIGN UP</button>
                       </div>}
                     <Link to ='/faq' className={s.link}><button className={s.signUp}>FAQ</button></Link>
                 </div>

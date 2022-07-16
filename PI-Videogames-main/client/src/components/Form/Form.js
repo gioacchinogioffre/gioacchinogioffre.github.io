@@ -138,7 +138,7 @@ else{
          <div className={s.subContainer}>
             <div className={s.subTitles}>
             <label htmlFor='name' >Name*:</label> 
-                <input className={s.inputs} type='text' name='name' key='name' value={game.name} onChange={handleOnChange} placeholder='Example: Warcraft 3'  ></input> 
+                <input className={s.inputs} required type='text' name='name' key='name' value={game.name} onChange={handleOnChange} placeholder='Example: Warcraft 3'  ></input> 
                 {errors.name && <p className={s.danger}>{errors.name}</p>}
             </div>
 
@@ -171,7 +171,7 @@ else{
     
             <div>
             <label htmlFor='description' className={s.descT} >Description*:</label>{errors.description && <p className={s.danger}>{errors.description}</p>} 
-                <textarea className={s.description} form="videogameForm" name='description' key='description' value={game.description} onChange={handleOnChange} placeholder='Describe your game...' ></textarea>
+                <textarea className={s.description} required form="videogameForm" name='description' key='description' value={game.description} onChange={handleOnChange} placeholder='Describe your game...' ></textarea>
             </div>
 
             <div className={s.containeRenders} id='renders'>

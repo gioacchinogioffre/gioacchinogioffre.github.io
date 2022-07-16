@@ -13,8 +13,6 @@ import { Auth0Provider} from "@auth0/auth0-react";
 
 dotenv.config();
 
-console.log(process.env);
-
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 ReactDOM.render(

@@ -11,12 +11,11 @@ export default function SearchBar({filterByGenre, filterByOrigin, searchByName, 
     const [title, setTitle] = useState('')
 
     function handleOnChange(e) {
-        console.log(filterByGenre, filterByOrigin, filterByPlatforms)
         setTitle(e.target.value)
     }
 
     const handleOnClickSearch = (e) => {
-        if(title.length>0) {
+        if(title.length>0 && title[0]!==' ') {
             history.push('/home')
             dispatch(getFilters((!filterByGenre ? [] : filterByGenre), (!filterByOrigin ? [] : filterByOrigin), title, (!filterByPlatforms ? [] : filterByPlatforms)))
             setTitle('')
@@ -24,7 +23,7 @@ export default function SearchBar({filterByGenre, filterByOrigin, searchByName, 
       }
 
       const handleSubmitEnter = (e) => {
-        if (e.key === "Enter" && title.length>0) {
+        if (e.key === "Enter" && title.length>0 && title[0]!==' ') {
             history.push('/home')
              dispatch(getFilters((!filterByGenre ? [] : filterByGenre), (!filterByOrigin ? [] : filterByOrigin), title, (!filterByPlatforms ? [] : filterByPlatforms)))
             setTitle("");
