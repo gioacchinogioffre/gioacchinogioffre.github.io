@@ -11,13 +11,13 @@ import NotFound from '../NotFound/NotFound';
 
 export class VideogameDetail extends Component {
 
-
+    
 
     componentDidMount() {
         const videogameDetail = this.props.match.params.videogameId
         this.props.getVideogameDetail(videogameDetail)
         this.props.setLoading(false)
-
+        window.scrollTo(0, 0);
     }
 
     componentWillUnmount() {
@@ -39,7 +39,8 @@ export class VideogameDetail extends Component {
         <div key={vg.name}>
 
             <div key={vg.id} className={s.container}>
-              <div><img className={s.image} src ={vg.background_image} alt='imageVgD'/></div>
+              <img className={s.image} src ={vg.background_image} alt='imageVgD'/>
+
               <div className={s.vgContainer}>
                  <h1>{vg.name}</h1>
                  <h3>Released: {vg.released}</h3>
@@ -55,7 +56,7 @@ export class VideogameDetail extends Component {
                     <h3>Rating: {vg.rating}</h3><img src={rating} alt ='rating'></img>
                 </div>
 
-                <div className={s.infoGP}><p>Platforms: {vg.platforms.join(' | ')}</p></div>
+                <div className={s.infoGP}><p>{vg.platforms.join(' | ')}</p></div>
 
                 </div>
            </div>
@@ -63,7 +64,6 @@ export class VideogameDetail extends Component {
         ) : <NotFound/>))
         :  <div className={s.loading}>
         <img src={loading} alt='loading'></img>
-        <h1>loading...</h1>
       </div>
     }
     </div>

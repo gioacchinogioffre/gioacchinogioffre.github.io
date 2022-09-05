@@ -7,56 +7,64 @@
 
 .profile{
     margin-top: 40px;
-    width: 300px;
-    height: 350px;
+    width: 20vw;
     border: 3px groove #f9a448;
 }
 
 .about {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-left: 40%;
-    border: 3px groove #f9a448;
-    width: 400px;
-
+    width: 30vw;
+    margin-left: 15vw;
 }
 
 .about p {
-    width: 320px;
-    margin-bottom: 30px;
+    width: 20vw;
+    font-size: 1.2vw;
 }
 
 .faq {
     width: 30vw;
-    margin-left: 10%;
+    margin-top: 1vw;
+}
+
+.faq h2 {
+    font-size: 2.5vw;
+    font-style: italic;
+}
+
+.faq p {
+    font-size: 1.3vw;
+}
+
+.faq div {
+    margin-bottom: 4vw;
 }
 
 .contact {
     display: flex;
-    width: 300px;
+    width: 20vw;
     justify-content: space-between;
     align-items: center;
+    font-size: 1.3vw;
 }
 
 .linkedin {
     transition: 0.3s;
     border:none;
-    width: 40px;
-    height: 40px;
+    width: 3vw;
 }
 
 .linkedin:hover {
     transition: 0.3s;
     cursor: pointer;
-    transform: scale(1.10)
+    transform: scale(1.05)
 }
 
 .github {
     transition: 0.3s;
-    width: 55px;
-    height: 45px;
+    width: 4.5vw;
 }
 
 .github:hover {

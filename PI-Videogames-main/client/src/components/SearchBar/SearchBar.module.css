@@ -1,51 +1,48 @@
 
 .searchBar {
     display: flex;
-    width: 80%;
-    max-width: 600px;
+    width: 40vw;
     align-items: center;
     background-color: #f9a348f1;
     opacity: 0.7;
-    padding-left: 10px 20px;
-    border-radius: 60px;
-    height: 40px;
+    border-radius: 3vw;
+    height:3vw;
     transition:0.3s;
+    margin-top: 0.7vw;
+    margin-right: 14vw;;
+
 }
 .searchBar:hover {
     transition:0.3s;
-     opacity: 1;
+    opacity: 1;
 }
 
 .searchBar input {
-   border: 0;
+   border: none;
     background-color: transparent;
     flex: 1;
     outline: none;
-    padding: 24px 20px;
-    color: black
-    /* padding:  */
+    padding: 2vw 1.5vw;
+    color: black;
+    font-size: 1.1vw;
 }
 
 ::placeholder {
     color: black
 }
 
-
-
-
 .searchBar button img {
-    width: 23px;
+    width: 1.4vw;
 }
 
 .searchBar button  {
  border: 0;
  border-radius: 50%;
- margin-right: 8px;
- width: 40px;
- height: 35px;
+ margin-right: 1vw;
+ width: 2.5vw;
+ height: 2.4vw;
  background: rgb(40, 39, 39);
  cursor:pointer
-
 }
 
  

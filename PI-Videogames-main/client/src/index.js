@@ -16,7 +16,9 @@ dotenv.config();
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 ReactDOM.render(
-  <Auth0Provider domain="dev-aekjy-pn.us.auth0.com" clientId='UjHJFDsvnCH76oJI91l7vLGajVfeBoF7' redirectUri="https://ki-games.vercel.app/home">
+  <Auth0Provider domain="dev-aekjy-pn.us.auth0.com" clientId='UjHJFDsvnCH76oJI91l7vLGajVfeBoF7' redirectUri="http://localhost:3000/home"
+  // redirectUri="https://ki-games.vercel.app/home"
+  >
   <Provider store={store}> 
   <BrowserRouter>
     <App />

@@ -1,15 +1,15 @@
 
 .clearFilters {
-width: 180px;
-height: 50px;
-font-size: 20px;;
+width: 14vw;
+height: 3.5vw;
+font-size: 1.5vw;
 color : rgba(255, 255, 255, 0.882);
 background-color: transparent;
 border-radius: 30px;
 border: 2px groove white;
-margin-left: 15px;
-margin-bottom: 50px;
-margin-top: 40px;
+margin-left: 2vw;
+margin-bottom: 2vw;
+margin-top: 4vw;
 }
 
 .clearFilters:hover {
@@ -18,10 +18,15 @@ border-color: #f9a348db;
 cursor: pointer;
 }
 
+.showFilters {
+    /* margin-bottom: -15vw; */
+}
+
 .renderFilters {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
-margin-bottom: 20px;
+margin-left: 1.3vw;
+width: 17vw;
 }
 
 .renderFilters button {
@@ -30,14 +35,24 @@ color: #f9a348db;
 border-color: rgba(255, 255, 255, 0.836);
 max-width: fit-content;
 max-height: fit-content;
-margin-bottom: 20px;
-font-size: 15px;
+margin-bottom: 1vw;
+margin-left: 1vw;
+font-size: 1.2vw
 }
 
 .renderFilters button:hover {
 color: white;
 border-color: #f9a348db;
 cursor:pointer;
+}
+
+.allFilters {
+    margin-top: 12vw;
+    margin-left: 1vw;
+}
+
+.allFiltersRenders {
+    margin-left: 1vw;
 }
 
 .filters {
@@ -47,28 +62,22 @@ border:none;
 outline: none;
 cursor: inherit;
 background-color: transparent;
-margin-left: 4%;
-margin-right: 5%;
-margin-top: 40px;
-margin-bottom: 40px;
-font-size: 22px;
-color: rgba(255, 255, 255, 0.895)
-}
-
-.filters:focus {
-background: transparent;
-background-color: transparent;
-outline: none;
+margin-left: 1vw;
+margin-top: 3vw;
+font-size: 1.4vw;
+color: rgba(255, 255, 255, 0.895);
 }
 
 .filters optgroup option  {
 transition: 0.3s;
 }
 
+
 .filters optgroup option:hover {
 transition: 0.3s;
-font-size: 23px;
+transform: scale(1.05);
 color:#f9a448;
 cursor: pointer;
 }
+
 

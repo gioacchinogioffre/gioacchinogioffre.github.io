@@ -24,14 +24,22 @@ export default function About() {
                 </div>
                 
                 <div className={s.faq}>
-                <h2>What is Ki Games?</h2>
-                <p>Ki Games is a prototype of a leading videogame database platform that combines videogames of the world most popular companies and also provides you the opportunity to be a part of this universe and promote your own videogames.</p>
-                <h2>What can you do here?</h2>
-                <p>You can search video games by name, filter them by more than one genre and platform, and combine them with each other.</p> 
-                <h2>And what if you sign up?</h2>
-                <p>You can show your talent to the world and upload your own videogames to be ranked by the community. Take the chance and become popular!</p> 
-                <h2>How can you contribute to Ki Games?</h2>
-                <p>Simple. Share your feedback! </p> 
+                    <div>
+                        <h2>What is Ki Games?</h2>
+                        <p>Ki Games is a prototype of a leading videogame database platform that combines videogames of the world most popular companies and also provides you the opportunity to be a part of this universe and promote your own videogames.</p>
+                    </div>
+                    <div>
+                        <h2>What can you do here?</h2>
+                        <p>You can search video games by name, filter them by more than one genre and platform, and combine them with each other.</p> 
+                    </div>
+                    <div>
+                        <h2>And what if you sign up?</h2>
+                        <p>You can show your talent to the world and upload your own videogames to be ranked by the community. Take the chance and become popular!</p> 
+                    </div>
+                    <div>
+                        <h2>How can you contribute to Ki Games?</h2>
+                        <p>Simple. Share your feedback! </p> 
+                    </div>
                 </div>
             </div>
         </div>

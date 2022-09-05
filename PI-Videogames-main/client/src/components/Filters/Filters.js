@@ -78,20 +78,22 @@ const Filters = ({setCurrentPage, searchByName, setSearchByName, filterByGenre, 
     return (
             <div>
 
-                <div>
-                {(renderFilters.origin.length>0 || renderFilters.genres.length>0 || renderFilters.platforms.length>0) && <button  onClick={() => handleOnClear()} className={h.clearFilters}>Remove filters</button>}
+                <div className={h.showFilters}>
+                {(renderFilters.origin.length>0 || renderFilters.genres.length>0 || renderFilters.platforms.length>0) && <button  onClick={() => handleOnClear()} className={h.clearFilters} >Clean filters</button>}
+                    <div className={h.renderFilters}>
+                            {renderFilters.genres.length>0 && renderFilters.genres.map(r => {
+                                return <button value={r} onClick={(e) => handleOnDelete(e, 'genres')}> {r} x</button>})}
+                            {renderFilters.platforms.length>0 && renderFilters.platforms.map(r => {
+                                return <button value={r} onClick={(e) => handleOnDelete(e, 'platforms')}> {r} x</button>})}
+                            {renderFilters.origin.length>0 && <button value={renderFilters.origin} onClick={(e) => handleOnDelete(e)}> {renderFilters.origin} x</button>}
+                    </div>
                 </div>
 
 
-                <div className={h.filters}>
 
-                       <div className={h.renderFilters}>
-                        {renderFilters.genres.length>0 && renderFilters.genres.map(r => {
-                            return <button value={r} onClick={(e) => handleOnDelete(e, 'genres')}> {r} x</button>})}
-                        {renderFilters.platforms.length>0 && renderFilters.platforms.map(r => {
-                            return <button value={r} onClick={(e) => handleOnDelete(e, 'platforms')}> {r} x</button>})}
-                        {renderFilters.origin.length>0 && <button value={renderFilters.origin} onClick={(e) => handleOnDelete(e)}> {renderFilters.origin} x</button>}
-                       </div>
+                <div className={(renderFilters.origin.length>0 || renderFilters.genres.length>0 || renderFilters.platforms.length>0) ? h.allFiltersRenders : h.allFilters}>
+
+                    <div>
                         <select value={selected.games} className={h.filters} name='all_db_games' id='games' size='4' onChange={(e) => handleOnSelectGames(e)}>
                             <optgroup  label='Show'>
                                 <option value='All Games'>All Games</option>
@@ -99,7 +101,10 @@ const Filters = ({setCurrentPage, searchByName, setSearchByName, filterByGenre, 
                                 <option value='Ki'>Ki Games</option>
                             </optgroup>
                         </select>
-                        <div className={h.genres}>
+                    </div>
+
+
+                    <div className={h.genres}>
 
                         <select value={selected.genres} className={h.filters} name='genres' id='genres' size='21' onChange={(e) => handleOnSelectGenre(e)}>
                             <optgroup label='Genres'>
@@ -108,7 +113,9 @@ const Filters = ({setCurrentPage, searchByName, setSearchByName, filterByGenre, 
                                <option value={g.name} key={g.id}>{g.name}</option> )}
                             </optgroup>
                          </select>
-            
+                    </div>
+
+                    <div>
                         <select  value={selected.platforms} className={h.filters} name='platforms' id='platforms' size='21' onChange={(e) => handleOnSelectPlatforms(e)}>
                             <optgroup label='Platforms'>
                                 <option value='All Platforms'>All Platforms</option>
@@ -116,7 +123,8 @@ const Filters = ({setCurrentPage, searchByName, setSearchByName, filterByGenre, 
                                <option value={p} key={p}>{p}</option> )}
                             </optgroup>
                          </select>
-                        </div>
+                    </div>
+                    
                 </div>
             </div>   
     ) 

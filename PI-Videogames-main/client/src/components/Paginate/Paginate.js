@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import s from './Paginate.module.css'
 
 const Paginate = (props) => {
@@ -10,12 +10,10 @@ const Paginate = (props) => {
     pageNumbers.push(i);
   }
 
-  // const [index, setIndex] = useState({startIndex: 0, endIndex: 3})
-
   return (
         <div className={s.paginate}>
         {currentPage !==1 && ( // si currentPage es distinto de uno, renderizamos el botón de previous. Le pasamos la función prevPage para setear la current page a la anterior.
-        <button  type='primary' onClick={() => {prevPage(); setIndex({startIndex: index.startIndex - 1, endIndex: index.endIndex - 1,  })   }}>{"< Previous"}</button>)}
+        <button  type='primary' onClick={() => {prevPage(); setIndex({startIndex: index.startIndex - 1, endIndex: index.endIndex - 1,  })   }}>{"<"}</button>)}
 
         {/* { pageNumbers.map((num) => (
           <a key={num} onClick={() => paginate(num)}>{num}</a> // Por cada número de página, renderizamos un botón que invocará la función paginate seteando  el número de página actual.
@@ -28,7 +26,7 @@ const Paginate = (props) => {
           {/* {currentPage !== pageNumbers.length} */}
         
         {(pageNumbers.length !== currentPage && allGames>0) && ( // Si la cantidad de páginas es distinta a la actual, renderizamos el botón de next. Le pasamos la función nextPage para setear la current page a la siguiente.
-        <button type='primary' onClick={() => {nextPage(); setIndex({startIndex: index.startIndex + 1, endIndex: index.endIndex + 1,  })  }}>{'Next >'} </button>)}
+        <button type='primary' onClick={() => {nextPage(); setIndex({startIndex: index.startIndex + 1, endIndex: index.endIndex + 1,  })  }}>{'>'} </button>)}
         </div>
     )
 }

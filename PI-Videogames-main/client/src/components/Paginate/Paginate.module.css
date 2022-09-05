@@ -3,17 +3,17 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    margin-left: 300px;
-    font-size: 20px
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    font-size: 2vw;
+    margin-left: 15vw;
 }
 
 .paginate button {
     transition: 0.3s;
     cursor: pointer;
-    margin-left: 10px;
-    font-size: 20px;
+    margin-left: 1vw;
+    font-size: 2vw;
     border: none;
     color: white;
     background-color: transparent
@@ -29,12 +29,13 @@
 .paginate a {
     transition: 0.3s;
     cursor: pointer;
-    padding: 5px;
+    padding: 1.5vw;
+    font-size: 2vw;
     color: white
 }
 
 .paginate a:hover {
-    font-size:  25px;
+    transition: 0.3s;
+    transform: scale(1.05);
     color: #f9a348db;
-
 }

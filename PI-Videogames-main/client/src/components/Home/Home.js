@@ -24,40 +24,41 @@ const Home = () => {
     const dispatch = useDispatch();
     
     // Filters - Local States
-    const[selected, setSelected] = useState({genres: 'All Genres', platforms: 'All Platforms', games: 'All Games'}); // inicializamos estado local selected para que cuando usemos el botón clear filters seteemos estos valores por defecto en cada lista de filtros.
+    const[selected, setSelected] = useState({genres: 'All Genres', platforms: 'All Platforms', games: 'All Games'});
     const [searchByName, setSearchByName] = useState(null);
-    const [filterByGenre, setFilterByGenre] = useState([]); // Initial state en arreglo vacío para ir pusheando los valores que seleccionamos en la lista desplegada y que podamos filtrar por esos valores al mismo tiempo (hacemos lo mismo con arreglo platforms)
+    const [filterByGenre, setFilterByGenre] = useState([]);
     const [filterByOrigin, setFilterByOrigin] = useState(null)
     const [filterByPlatforms, setFilterByPlatforms] = useState([]);
-    const [renderFilters, setRenderFilters] = useState({origin: '', genres:[], platforms:[]}); // Estado para renderizar los filtros que vamos aplicando para que el usuario pueda verlos y eliminarlos si quiere.
+    const [renderFilters, setRenderFilters] = useState({origin: '', genres:[], platforms:[]});
 
 
-    const allGames = useSelector(state => state.filteredVideogames) // Estado global que trae los juegos filtrados (en principio es una copia de TODOS los videojuegos)
-    const loading = useSelector(state => state.loading); // Estado global de loading (valor inicial true)
+    const allGames = useSelector(state => state.filteredVideogames)
+    const loading = useSelector(state => state.loading);
     
     // Paginate - Local States
     const [currentPage, setCurrentPage] = useState(1);
-    const [gamesPerPage] = useState(15); // seteamos la cantidad de juegos que mostraremos por página
+    const [gamesPerPage] = useState(15);
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-    const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame) // Instanciamos constante donde guardaremos los juegos que mostraremos por página según los indices correspondientes.
-    const paginate = (pageNumber) => setCurrentPage(pageNumber); // seteamos el estado currentPage con el número de página que le pasemos por parámetro. Invocaremos esta función al hacer click en el botón de la página.
+    const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame) 
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const prevPage= () => setCurrentPage(currentPage - 1);
     const nextPage= () => setCurrentPage(currentPage + 1);
     const [index, setIndex] = useState({startIndex: 0, endIndex: 3})
 
 
-   useEffect(() => { // despachamos las actions para obtener los juegos y los géneros cada vez que se monte el componente.
+   useEffect(() => { 
        dispatch(getGenres())
-       if(!allGames.length) dispatch(getAllVideogames()) // loading pasa a false.
+       if(!allGames.length) dispatch(getAllVideogames()) 
        else dispatch(setLoading(false))
+       window.scrollTo(0, 0);
     }, [])
     
     useEffect(() => { 
         setCurrentPage(1)
     }, [allGames])
 
-    useEffect(() => {return () => dispatch(setLoading())}, []) // despachamos la action para setear el loading a true cada vez que se desmonte el componente.
+    useEffect(() => {return () => dispatch(setLoading())}, [])
 
 
     const handleOnSelectOrder = (e) => { 
@@ -66,7 +67,7 @@ const Home = () => {
         dispatch(getOrders(orderGames))
       }
 
-      const handleOnClear = () => { // función para limpiar los filtros. Seteamos nuestros estados locales a sus valores por defecto y despachamos la action de filtrado por dichos valores (no le paso los estados directamente porque la action puede despacharse y tal vez los mismos no se actualizaron aún)
+      const handleOnClear = () => { 
         setSelected({genres: 'All Genres', platforms: 'All Platforms', games: 'All Games'})
         setFilterByGenre([])
         setFilterByOrigin(null)
@@ -89,23 +90,24 @@ const Home = () => {
                  <Filters index={index} setIndex={setIndex} setCurrentPage={setCurrentPage} searchByName={searchByName} setSearchByName={setSearchByName} filterByGenre={filterByGenre} setFilterByGenre={setFilterByGenre} filterByOrigin={filterByOrigin} setFilterByOrigin={setFilterByOrigin} filterByPlatforms={filterByPlatforms} setFilterByPlatforms={setFilterByPlatforms} renderFilters={renderFilters} setRenderFilters={setRenderFilters} handleOnClear={handleOnClear} selected={selected} setSelected={setSelected}></Filters>
              </div>
                     <div>
-                    <div className={h.orders}>
-                        <h4>Sort by: </h4>
-                     <select defaultValue='alphabetic' name='alphabetic' onChange={(e) => handleOnSelectOrder(e)}>
-                                <option disabled value='alphabetic'>Name</option>
-                                <option value='a-z'>A-Z</option>
-                                <option value='z-a'>Z-A</option>
-                         </select>
-                        <select defaultValue='rating' name='rating' onChange={(e) => handleOnSelectOrder(e)}>
-                            <option disabled value='rating'>Rating</option>
-                                <option value='descending'>Highest</option>
-                                <option  value='ascending'>Lowest</option>
-                        </select>
-                    </div>
 
-                    {allGames.length >= 100 && <h1 className={h.trending}>Trending now</h1>}
+                    <h1 className={h.trending}>Trending now</h1>
                     
                     <div className={h.vgContainer}>
+                        {!loading && <div className={h.orders}>
+                            <h4>Sort by: </h4>
+                        <select defaultValue='alphabetic' name='alphabetic' onChange={(e) => handleOnSelectOrder(e)}>
+                                    <option disabled value='alphabetic'>Name</option>
+                                    <option value='a-z'>A-Z</option>
+                                    <option value='z-a'>Z-A</option>
+                            </select>
+                            <select defaultValue='rating' name='rating' onChange={(e) => handleOnSelectOrder(e)}>
+                                <option disabled value='rating'>Rating</option>
+                                    <option value='descending'>Highest</option>
+                                    <option  value='ascending'>Lowest</option>
+                            </select>
+                        </div>}
+                        <div className={h.cardsContainer}>
                          {!loading ? (currentGames.length ? currentGames.map(vg => (
                             <div key={vg.id} className={h.cardC}>
                             <Link className={h.link} to={`/videogames/${vg.id}`}>
@@ -115,7 +117,7 @@ const Home = () => {
                                     </div>
                                     <div className={h.Card} key={vg.id}>
                                     <img className={h.vgImage} src={vg.background_image} alt='videogameImage'/>
-                                         <div className ={h.cardTitle}>{vg.name}</div>
+                                         <div className ={h.cardTitle}><h1>{vg.name}</h1></div>
                                          <div className ={h.cardGenres}>{vg.genres.map(g => g.name).join(' | ')}</div>
                                   
                                     <div className={h.platforms}>
@@ -132,9 +134,9 @@ const Home = () => {
                             </div>)) : <NotFound/>)
                             : <div className={h.loading}>
                                 <img src={loadingGif} alt='loading'></img>
-                                <h1>loading...</h1>
                               </div>
                             }
+                            </div>
                     </div>
                     </div>
     

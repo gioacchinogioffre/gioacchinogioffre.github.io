@@ -5,16 +5,13 @@ main {
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-left: 80%;
+    margin-left: 18vw;
     height: 100vh;
   }
   
   .errorTitle {
     color: #e7ebf2;
-    font-size: 6rem;
-    margin: .025em 0;
-    text-shadow: .05em .05em 0 rgba(0,0,0,.25);
-    white-space: nowrap;
+    font-size: 7vw;
   }
 
  main div {
@@ -24,14 +21,14 @@ main {
  }
 
  main div img {
-    width: 250px;
-    margin-left: 40px;;
+    width: 20vw;
+    margin-left: 3vw;
  }
     
   .errorSubTitle {
     color: #e7ebf2;
-    margin-bottom: .40em;
-    margin-top: 40px;
+    margin-top: 3vw;
+    font-size: 2vw;
   } 
   
   

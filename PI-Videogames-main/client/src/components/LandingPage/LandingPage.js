@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getGenres } from '../../actions';
-import { connect } from 'react-redux';
 import s from './LandingPage.module.css'
 import radar from '../Icons/logophoto3.png'
 import sony from '../Icons/sony.png'
@@ -42,8 +41,8 @@ export default function LandingPage () {
                 <div><h1 className={s.title}>THE MOST POPULAR GAMING DATABASE IN THE UNIVERSE</h1></div>
                 <br></br>
             
-                <div className={s.video}>
-                    <img className={s.video} src={photo} alt='landingPhoto'></img>
+                <div className={s.banner}>
+                    <img className={s.banner} src={photo} alt='landingPhoto'></img>
                 </div>
 
                 <div className={s.info}>
@@ -54,19 +53,19 @@ export default function LandingPage () {
 
                     <div className={s.first}>
                         <h2>IT'S FREE!</h2>
-                        <p>Sign up to keep updated about the gaming world <br></br>and be a member of our universe </p>
+                        <p>Sign up to keep updated about the gaming<br></br> world and be a member of our universe </p>
                     </div>
 
                     <div className={s.first}>
                         <h2>Show us your talent</h2>
-                        <p>Upload your own videogame <br></br>and get it ranked by the community!</p>
+                        <p>Upload your own videogames <br></br>and get it ranked by the community!</p>
                     </div>
 
                  </div>
 
-                        <button>
-                            <Link className={s.link} to='/home'>GET STARTED</Link>
-                        </button>
+                        <Link to='/home' className={s.linkStart}>
+                            <button> GET STARTED</button>
+                        </Link>
 
                      <div className={s.sponsor} >
                             <h2>Sponsored by</h2>

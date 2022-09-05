@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import s from './NotFound.module.css'
 import ghost from '../Icons/ghostII.png'
-import NavBar from '../NavBar/NavBar';
 import {Link} from 'react-router-dom';
 
 export class NotFound extends Component {

@@ -1,56 +1,58 @@
 .info img {
-    width: 200px;
-    height: 200px;
+    width: 15vw;
     border-radius: 50%;
-    margin-right: 20px;
-    margin-top: 10px
+    margin-top: 1vw;
 }
 
 .info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3%;
+    margin-top: 3vw;
+    margin-bottom: 5vw;
 }
 
 .info p {
-    margin-top: 40px;
-    font-size: 20px;
+    margin-top: 5vw;
+    font-size: 1.5vw;
     font-weight: bold;
-    /* align-items: center; */
+    max-width: 40vw;
     justify-content: center;
 }
 
 .info p img {
-    /* margin-top: 30px; */
-    width: 30px;
-    height: 30px;
+    width: 2.5vw;
     transition: 0.3s;
     background-color: white;
-    border-radius: 200px;
-    margin-left: 20px;
+    margin-left: 1vw;
+    margin-bottom: -0.7vw;
 }
 
 .info p img:hover {
     transition: 0.3s;
-    transform: scale(1.1);
+    transform: scale(1.05);
     cursor: pointer;
 }
 
 
 .info p button{
     transition: 0.3s;
-    width: 200px;
-    height: 50px;
+    width: 15vw;
+    height: 3.5vw;
     border: 2px groove red;
-    border-radius: 40px;
+    border-radius: 3vw;
     background-color: transparent;
     color: white;
-    margin-left: 160px;
+    margin-left: 2vw;
+    font-size: 1.2vw;
   }
 
   .info p button:hover {
     cursor: pointer;
     transform: scale(1.05);
     color:red;
+  }
+
+  .info h1 {
+    font-size: 2.3vw;
   }

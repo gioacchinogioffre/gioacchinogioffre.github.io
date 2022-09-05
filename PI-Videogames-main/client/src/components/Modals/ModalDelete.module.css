@@ -8,22 +8,32 @@
     overflow: auto;
     border-radius: 4px;
     outline: none;
-    padding: 300px 1000px 400px 1000px
+    padding: 25vw 80vw 30vw 80vw
   }
   
 
   .content {
     display: grid;
     grid-template-columns: 50% 50%;
-    height: 300px;
+    height: 100%;
     max-height: 300px;
-    width: 600px;
+    width: 100vw;
     max-width: 600px;
+  }
+
+  .mario {
+    width: 40vw;
+  }
+
+  .content h2 {
+    font-size: 2.5vw;
   }
 
   .content button {
     transition: 0.3s;
-    margin-right: 10px;
+    margin-right: 1vw;
+    margin-top: 1vw;
+    font-size: 1.3vw;
     color: white;
     background-color: transparent;
   }
@@ -54,22 +64,22 @@
   }
 
   .ryuk {
-    width: 600px;
-    height: 700px;
+    width: 50vw;
   }
 
-
-
   .deleteGame {
-    margin-left: 72vw;
+    margin-left:13vw;
+    margin-bottom: -3vw;
+    margin-top: 5vw;
   }
 
   .deleteGame button{
     transition: 0.3s;
-    width: 200px;
-    height: 50px;
+    width: 15vw;
+    height: 3.5vw;
     border: 2px groove red;
-    border-radius: 40px;
+    border-radius: 2vw;
+    font-size: 1.3vw;
     background-color: transparent;
     color: white;
   }
@@ -81,9 +91,13 @@
   }
 
   .firstI {
-    margin-top: 150px;
+    margin-top: 10vw;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .firstI img {
+    width: 30vw;
   }
 

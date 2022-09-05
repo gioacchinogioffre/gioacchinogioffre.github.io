@@ -131,7 +131,7 @@ else{
         <div className={showModal && s.opacityBG}>
 
         <NavBar></NavBar>
-        <div className={s.title}><h3>Upload your own Game!</h3></div>
+        <div className={s.title}><h3>Upload your videogame!</h3></div>
        <form className={s.container} onSubmit={handleOnSubmit} id="videogameForm">
         
        <div className={s.containerII}>
@@ -192,10 +192,10 @@ else{
 
             <div className={s.imageContainer}>
                 <img className={s.photoRender} src={game.background_image.includes('http') ? game.background_image : photo} alt='photoRender'></img>
-                <label className={s.imageRender} htmlFor='image'>Image:</label>
+                <label className={s.imageRender} htmlFor='image'>Image URL:</label>
                     <input className={errors.background_image && s.danger} type='text' pattern='https?://[\w-]+(.[\w-]+)+[/#?]?.*$' title='image url' name='background_image' key='background_image' value={game.background_image} onChange={handleOnChange} placeholder='Insert image url'></input>
                     {errors.background_image && <p className={s.danger}>{errors.background_image}</p>} 
-                <input className={s.create} type='submit' value='CREATE!'></input> 
+                <input className={s.create} type='submit' value='UPLOAD'></input> 
                 <div className={setModal()}><Modal /></div>
             </div>
        </div>
