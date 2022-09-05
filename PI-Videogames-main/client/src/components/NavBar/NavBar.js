@@ -30,8 +30,8 @@ export default function NavBar({filterByGenre, filterByOrigin, searchByName, fil
                       : <button onClick={() => loginWithRedirect()} > LOG IN </button> }
                       { isAuthenticated 
                       ? <button  onClick={()=>
-                        logout({returnTo:'https://localhost:3000/home'})}
-                        // logout({returnTo:'https://ki-games.vercel.app/home'})}
+                        // logout({returnTo:'https://localhost:3000/home'})}
+                        logout({returnTo:'https://ki-games.vercel.app/home'})}
                         >LOG OUT</button> 
                       : <button onClick={() => loginWithRedirect()}>SIGN UP</button> }
                     <Link to ='/faq' className={s.link}><button>FAQ</button></Link>
