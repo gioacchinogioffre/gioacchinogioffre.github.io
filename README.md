@@ -41,6 +41,12 @@ BACK-END
 - Creation of an application's own video game ranking.
 
 ## Screenshots
+<img width="1440" alt="Captura de Pantalla 2022-09-09 a la(s) 16 08 11" src="https://user-images.githubusercontent.com/101685121/189426164-ddfb0b38-5a2e-4cfd-9f0b-8a7d15384b8a.png">
+<img width="1440" alt="Captura de Pantalla 2022-09-09 a la(s) 16 08 25" src="https://user-images.githubusercontent.com/101685121/189426176-8203d996-0f5b-4bc9-8e0b-abbe6b584e0a.png">
+<img width="1440" alt="Captura de Pantalla 2022-09-09 a la(s) 16 08 46" src="https://user-images.githubusercontent.com/101685121/189426186-aba295f8-32c0-4c53-9060-5ad6683e0d9e.png">
+<img width="1440" alt="Captura de Pantalla 2022-09-09 a la(s) 16 09 09" src="https://user-images.githubusercontent.com/101685121/189426195-30fea29a-7a8c-4493-8b00-61e9d00003ed.png">
+<img width="1440" alt="Captura de Pantalla 2022-09-09 a la(s) 16 09 48" src="https://user-images.githubusercontent.com/101685121/189426211-56686def-89cb-4820-9cc4-a666b0724108.png">
+
 
 ## Setup 
 Run 'npm install' inside client's and api's folders.
