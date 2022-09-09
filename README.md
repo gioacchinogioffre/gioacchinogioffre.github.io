@@ -38,7 +38,7 @@ BACK-END
 ## Upcoming Features
 - Login implementation connected with database to save user data.
 - Favourites video games section in user profile.
-- Creation of an application's own video game ranking.
+- App videogames ranking.
 
 ## Screenshots
 <img width="1440" alt="Captura de Pantalla 2022-09-09 a la(s) 16 08 11" src="https://user-images.githubusercontent.com/101685121/189426164-ddfb0b38-5a2e-4cfd-9f0b-8a7d15384b8a.png">
